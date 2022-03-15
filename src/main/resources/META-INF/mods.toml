@@ -1,0 +1,37 @@
+modLoader="javafml" #mandatory
+#UPDATE
+loaderVersion="[36,)"
+license="All rights reserved"
+
+[[mods]] #mandatory
+
+modId="simpleshops"
+version="${file.jarVersion}"
+displayName="Simple Shops"
+
+#updateJSONURL="http://myurl.me/"
+#issueTrackerURL="http://my.issue.tracker/"
+
+displayURL="https://wolforcept.github.io"
+logoFile="logo.png"
+
+credits="Wolforce"
+authors="Wolforce"
+
+# The description text for the mod (multi line!) (#mandatory)
+description='''
+A simple shop mod
+'''
+
+[[dependencies.megastructures]]
+    modId="forge" #mandatory
+    mandatory=true #mandatory
+    versionRange="[36,)"
+    ordering="NONE"
+    side="BOTH"
+[[dependencies.megastructures]]
+    modId="minecraft"
+    mandatory=true
+    versionRange="[1.16.5,1.17)"
+    ordering="NONE"
+    side="BOTH"

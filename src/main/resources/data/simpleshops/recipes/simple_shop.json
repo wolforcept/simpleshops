@@ -1,0 +1,18 @@
+{
+  "type" : "minecraft:crafting_shaped",
+  "pattern" : [ " Q ", "WWW", "WCW" ],
+  "key" : {
+    "W" : [ {
+      "tag" : "minecraft:planks"
+    } ],
+    "Q" : [ {
+      "item" : "minecraft:quartz"
+    } ],
+    "C" : [ {
+      "item" : "minecraft:chest"
+    } ]
+  },
+  "result" : {
+    "item" : "simpleshops:simple_shop"
+  }
+}
