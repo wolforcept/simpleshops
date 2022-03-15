@@ -6,7 +6,7 @@ license="All rights reserved"
 [[mods]] #mandatory
 
 modId="simpleshops"
-version="${file.jarVersion}"
+version="1.1.2"
 displayName="Simple Shops"
 
 #updateJSONURL="http://myurl.me/"
