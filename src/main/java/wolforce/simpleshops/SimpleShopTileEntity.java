@@ -104,11 +104,21 @@ public class SimpleShopTileEntity extends TileEntity {
 			return ItemStack.EMPTY;
 		}
 		int countToInsert = output.getCount();
-		if (!stackToInsert.sameItem(output) || !stackToInsert.getTag().equals(output.getTag()) || stackToInsert.getCount() < countToInsert)
+		if (!stackToInsert.sameItem(output) || !tagsEqualOrNull(stackToInsert, output) || stackToInsert.getCount() < countToInsert)
 			return stackToInsert;
 		invNr += countToInsert;
 		sendUpdate();
 		return StackUtil.setCount(stackToInsert, stackToInsert.getCount() - countToInsert);
+	}
+
+	private boolean tagsEqualOrNull(ItemStack a1, ItemStack a2) {
+		CompoundNBT s1 = a1.getTag();
+		CompoundNBT s2 = a2.getTag();
+		if ((s1 == null && s2 != null) || (s2 == null && s1 != null))
+			return false;
+		if (s1 == null && s2 == null)
+			return true;
+		return s1.equals(s2);
 	}
 
 	public void tryBuy(PlayerEntity player, ItemStack input, boolean isCreative) {
