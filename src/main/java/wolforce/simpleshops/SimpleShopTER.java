@@ -1,37 +1,37 @@
 package wolforce.simpleshops;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.platform.Lighting;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.math.Quaternion;
+import com.mojang.math.Vector3f;
 
-import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.client.renderer.IRenderTypeBuffer;
-import net.minecraft.client.renderer.ItemRenderer;
-import net.minecraft.client.renderer.RenderHelper;
-import net.minecraft.client.renderer.model.IBakedModel;
-import net.minecraft.client.renderer.model.ItemCameraTransforms;
-import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
-import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.math.vector.Quaternion;
-import net.minecraft.util.math.vector.Vector3f;
-import net.minecraft.util.text.StringTextComponent;
-import net.minecraft.world.World;
+import net.minecraft.client.gui.Font;
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.block.model.ItemTransforms;
+import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
+import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
+import net.minecraft.client.renderer.entity.ItemRenderer;
+import net.minecraft.client.resources.model.BakedModel;
+import net.minecraft.network.chat.TextComponent;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.state.BlockState;
 
-public class SimpleShopTER extends TileEntityRenderer<SimpleShopTileEntity> {
+public class SimpleShopTER implements BlockEntityRenderer<SimpleShopTileEntity> {
 
-	public SimpleShopTER(TileEntityRendererDispatcher d) {
-		super(d);
+	public SimpleShopTER(BlockEntityRendererProvider.Context ctx) {
 	}
-
+	
+	@SuppressWarnings("resource")
 	@Override
-	public void render(SimpleShopTileEntity tile, float partialTickTime, MatrixStack matrix, IRenderTypeBuffer buffer, int combinedLight,
+	public void render(SimpleShopTileEntity tile, float partialTickTime, PoseStack matrix, MultiBufferSource buffer, int combinedLight,
 			int combinedOverlay) {
 
 		if (tile == null)
 			return;
 
-		World world = tile.getLevel();
+		Level world = tile.getLevel();
 		if (world == null)
 			return;
 
@@ -61,17 +61,17 @@ public class SimpleShopTER extends TileEntityRenderer<SimpleShopTileEntity> {
 		}
 
 		ItemStack renderStack = tile.getCost();
-		FontRenderer fontRenderer = renderer.getFont();
+		Font font = Minecraft.getInstance().font;
 		ItemRenderer renderItem = Minecraft.getInstance().getItemRenderer();
 		if (!renderStack.isEmpty()) {
 
-			IBakedModel itemModel = renderItem.getModel(renderStack, null, null);
+			BakedModel itemModel = renderItem.getModel(renderStack, null, null, 0);
 			boolean render3D = itemModel.isGui3d();
 
 			if (render3D)
-				RenderHelper.setupFor3DItems();
+				Lighting.setupFor3DItems();
 			else
-				RenderHelper.setupForFlatItems();
+				Lighting.setupForFlatItems();
 
 			matrix.pushPose(); // START RENDER ITEM
 			matrix.translate(-.055, .131, .35);
@@ -82,7 +82,7 @@ public class SimpleShopTER extends TileEntityRenderer<SimpleShopTileEntity> {
 				matrix.translate(0, -.1, 0);
 			}
 			matrix.mulPose(new Quaternion(Vector3f.YN, render3D ? 45f : 90, true));
-			renderItem.render(renderStack, ItemCameraTransforms.TransformType.GROUND, false, matrix, buffer, combinedLight, combinedOverlay,
+			renderItem.render(renderStack, ItemTransforms.TransformType.GROUND, false, matrix, buffer, combinedLight, combinedOverlay,
 					itemModel);
 			matrix.popPose(); // FINNISH RENDER ITEM
 
@@ -98,7 +98,7 @@ public class SimpleShopTER extends TileEntityRenderer<SimpleShopTileEntity> {
 				matrix.scale(.7f, .7f, .7f);
 				matrix.translate(-2, 3, 0);
 			}
-			fontRenderer.draw(matrix, new StringTextComponent("x" + renderStack.getCount()), 0, 0, 0);
+			font.draw(matrix, new TextComponent("x" + renderStack.getCount()), 0, 0, 0);
 			matrix.popPose(); // END RENDER TEXT
 
 		}
@@ -106,19 +106,19 @@ public class SimpleShopTER extends TileEntityRenderer<SimpleShopTileEntity> {
 		ItemStack renderStack2 = tile.getOutputStack();
 		if (!renderStack2.isEmpty()) {
 
-			IBakedModel itemModel = renderItem.getModel(renderStack2, null, null);
+			BakedModel itemModel = renderItem.getModel(renderStack2, null, null, 0);
 			boolean render3D = itemModel.isGui3d();
 			if (render3D)
-				RenderHelper.setupFor3DItems();
+				Lighting.setupFor3DItems();
 			else
-				RenderHelper.setupForFlatItems();
+				Lighting.setupForFlatItems();
 
-			matrix.pushPose(); 
+			matrix.pushPose();
 			matrix.translate(0.5F, render3D ? .75f : .9f, 0.5F);
 			long a = System.currentTimeMillis() / 40 % 360;
 			matrix.mulPose(new Quaternion(Vector3f.YP, a, true));
-			renderItem.render(renderStack2, ItemCameraTransforms.TransformType.GROUND, false, matrix, buffer, combinedLight,
-					combinedOverlay, itemModel);
+			renderItem.render(renderStack2, ItemTransforms.TransformType.GROUND, false, matrix, buffer, combinedLight, combinedOverlay,
+					itemModel);
 			matrix.popPose();
 
 			matrix.pushPose();
@@ -127,7 +127,7 @@ public class SimpleShopTER extends TileEntityRenderer<SimpleShopTileEntity> {
 			matrix.mulPose(new Quaternion(Vector3f.YN, 90, true));
 			matrix.mulPose(new Quaternion(Vector3f.XN, 90, true));
 			matrix.translate(renderStack2.getCount() > 9 ? 11 : 15, -12, -27.55);
-			fontRenderer.draw(matrix, new StringTextComponent("x" + renderStack2.getCount()), 0, 0, 0);
+			font.draw(matrix, new TextComponent("x" + renderStack2.getCount()), 0, 0, 0);
 			matrix.popPose();
 		}
 

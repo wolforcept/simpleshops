@@ -6,49 +6,36 @@ import java.util.Set;
 import java.util.UUID;
 import java.util.function.Supplier;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.item.ItemEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.ItemStackHelper;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.network.NetworkManager;
-import net.minecraft.network.play.server.SUpdateTileEntityPacket;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.tileentity.TileEntityType;
-import net.minecraft.util.Hand;
-import net.minecraft.util.NonNullList;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.vector.Vector3d;
-import net.minecraft.world.World;
-import net.minecraftforge.fml.RegistryObject;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.NonNullList;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.ContainerHelper;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.Vec3;
 
-public class SimpleShopTileEntity extends TileEntity {
+public class SimpleShopTileEntity extends BlockEntityParent {
 
-	public static final DeferredRegister<TileEntityType<?>> REGISTER = DeferredRegister.create(ForgeRegistries.TILE_ENTITIES,
-			SimpleShops.MODID);
-
-	static Supplier<Collection<Block>> valid = () -> SimpleShops.blocks.values();
-	public static final RegistryObject<TileEntityType<SimpleShopTileEntity>> TYPE = REGISTER.register("simple_shop_tile_entity",
-			() -> new TileEntityType<>(SimpleShopTileEntity::new, setOf(valid.get()), null));
+	static Supplier<Collection<Block>> valid = () -> setOfBlocks(Registry.SIMPLE_SHOP.get()); // TODO
 
 	private static final int COST_SLOT = 1;
 	private static final int RESULT_SLOT = 0;
 
-	public SimpleShopTileEntity(TileEntityType<?> type) {
-		super(type);
+	public SimpleShopTileEntity(BlockPos pos, BlockState state) {
+		super(Registry.SIMPLE_SHOP_TILE.get(), pos, state);
 	}
 
-	private static <T> Set<T> setOf(Collection<T> collection) {
-		return new HashSet<T>(collection);
-	}
-
-	public SimpleShopTileEntity() {
-		this(TYPE.get());
+	private static Set<Block> setOfBlocks(Block... blocks) {
+		HashSet<Block> set = new HashSet<Block>();
+		for (Block b : blocks)
+			set.add(b);
+		return set;
 	}
 
 	private UUID owner = new UUID(0, 0);
@@ -60,10 +47,17 @@ public class SimpleShopTileEntity extends TileEntity {
 		setChanged();
 	}
 
-	public boolean isOwner(Block block, LivingEntity entity) {
-		return block == SimpleShops.creative_simple_shop //
-				? (entity instanceof PlayerEntity && ((PlayerEntity) entity).isCreative()) //
-				: owner.equals(entity.getUUID());
+	public boolean isOwner(Block _block, LivingEntity entity) {
+
+		if (!(_block instanceof SimpleShopBlock))
+			return false;
+
+		SimpleShopBlock block = (SimpleShopBlock) _block;
+
+		if (block.isCreative)
+			return (entity instanceof Player && ((Player) entity).isCreative());
+
+		return owner.equals(entity.getUUID());
 	}
 
 	private boolean isSoldOut() {
@@ -96,7 +90,7 @@ public class SimpleShopTileEntity extends TileEntity {
 	//
 	// PUBLIC METHODS
 
-	public ItemStack insertInv(PlayerEntity player, ItemStack stackToInsert) {
+	public ItemStack insertInv(Player player, ItemStack stackToInsert) {
 		ItemStack output = getOutputStack();
 		if (output.isEmpty()) {
 			setOutputStack(stackToInsert);
@@ -104,14 +98,24 @@ public class SimpleShopTileEntity extends TileEntity {
 			return ItemStack.EMPTY;
 		}
 		int countToInsert = output.getCount();
-		if (!stackToInsert.sameItem(output) || !stackToInsert.getTag().equals(output.getTag()) || stackToInsert.getCount() < countToInsert)
+		if (!stackToInsert.sameItem(output) || !tagsEqualOrNull(stackToInsert, output) || stackToInsert.getCount() < countToInsert)
 			return stackToInsert;
 		invNr += countToInsert;
 		sendUpdate();
 		return StackUtil.setCount(stackToInsert, stackToInsert.getCount() - countToInsert);
 	}
 
-	public void tryBuy(PlayerEntity player, ItemStack input, boolean isCreative) {
+	private boolean tagsEqualOrNull(ItemStack a1, ItemStack a2) {
+		CompoundTag s1 = a1.getTag();
+		CompoundTag s2 = a2.getTag();
+		if ((s1 == null && s2 != null) || (s2 == null && s1 != null))
+			return false;
+		if (s1 == null && s2 == null)
+			return true;
+		return s1.equals(s2);
+	}
+
+	public void tryBuy(Player player, ItemStack input, boolean isCreative) {
 		if (isSoldOut() && !isCreative)
 			return;
 		ItemStack cost = getCost();
@@ -122,13 +126,13 @@ public class SimpleShopTileEntity extends TileEntity {
 				invNr -= result.getCount();
 			gainsNr += cost.getCount();
 			spawn(player.level, player.position(), result);
-			player.setItemInHand(Hand.MAIN_HAND, change);
+			player.setItemInHand(InteractionHand.MAIN_HAND, change);
 			sendUpdate();
 		}
 		return;
 	}
 
-	public void dropShop(PlayerEntity player, BlockPos pos) {
+	public void dropShop(Player player, BlockPos pos) {
 		dropAllInv(player);
 		dropAllGains(player);
 
@@ -136,11 +140,11 @@ public class SimpleShopTileEntity extends TileEntity {
 			clearCostAndOutputStacks();
 		} else {
 			player.level.removeBlock(pos, true);
-			spawn(level, player.position(), new ItemStack(SimpleShops.simple_shop));
+			spawn(level, player.position(), new ItemStack(Registry.SIMPLE_SHOP_ITEM.get()));
 		}
 	}
 
-	public void popGains(PlayerEntity player) {
+	public void popGains(Player player) {
 		if (gainsNr <= 0)
 			return;
 		dropAllGains(player);
@@ -151,7 +155,7 @@ public class SimpleShopTileEntity extends TileEntity {
 	//
 	// PRIVATE METHODS
 
-	private void dropAllInv(PlayerEntity player) {
+	private void dropAllInv(Player player) {
 		ItemStack item = getOutputStack();
 		while (invNr > 64) {
 			invNr -= 64;
@@ -161,7 +165,7 @@ public class SimpleShopTileEntity extends TileEntity {
 		invNr = 0;
 	}
 
-	private void dropAllGains(PlayerEntity player) {
+	private void dropAllGains(Player player) {
 		ItemStack item = getCost();
 		while (gainsNr > 64) {
 			gainsNr -= 64;
@@ -171,11 +175,11 @@ public class SimpleShopTileEntity extends TileEntity {
 		gainsNr = 0;
 	}
 
-	private void spawn(World world, Vector3d pos, ItemStack stack, int amount) {
+	private void spawn(Level world, Vec3 pos, ItemStack stack, int amount) {
 		spawn(world, pos, StackUtil.setCount(stack, amount));
 	}
 
-	private void spawn(World world, Vector3d pos, ItemStack stack) {
+	private void spawn(Level world, Vec3 pos, ItemStack stack) {
 		world.addFreshEntity(new ItemEntity(world, pos.x, pos.y, pos.z, stack.copy()));
 	}
 
@@ -189,8 +193,8 @@ public class SimpleShopTileEntity extends TileEntity {
 	private static final String NBT_OWNER1 = "owner_part1";
 	private static final String NBT_OWNER2 = "owner_part2";
 
-	public void write(CompoundNBT nbt) {
-		CompoundNBT invNbt = ItemStackHelper.saveAllItems(new CompoundNBT(), inventory);
+	public void writePacketNBT(CompoundTag nbt) {
+		CompoundTag invNbt = ContainerHelper.saveAllItems(new CompoundTag(), inventory);
 		nbt.put(NBT_INV, invNbt);
 		nbt.putInt(NBT_INV_NR, invNr);
 		nbt.putInt(NBT_GAINS_NR, gainsNr);
@@ -198,54 +202,19 @@ public class SimpleShopTileEntity extends TileEntity {
 		nbt.putLong(NBT_OWNER2, owner.getLeastSignificantBits());
 	}
 
-	public void read(BlockState state, CompoundNBT nbt) {
+	public void readPacketNBT(CompoundTag nbt) {
+
 		inventory = NonNullList.withSize(2, ItemStack.EMPTY);
-		ItemStackHelper.loadAllItems(nbt.getCompound(NBT_INV), inventory);
+		ContainerHelper.loadAllItems(nbt.getCompound(NBT_INV), inventory);
 		this.invNr = nbt.getInt(NBT_INV_NR);
 		this.gainsNr = nbt.getInt(NBT_GAINS_NR);
 		this.owner = new UUID(nbt.getLong(NBT_OWNER1), nbt.getLong(NBT_OWNER2));
 	}
 
-	@Override
-	public CompoundNBT save(CompoundNBT nbt) {
-		write(nbt);
-		return super.save(nbt);
-	}
-
-	@Override
-	public void load(BlockState state, CompoundNBT nbt) {
-		read(state, nbt);
-		super.load(state, nbt);
-	}
-
-	@Override
-	public SUpdateTileEntityPacket getUpdatePacket() {
-		CompoundNBT nbt = new CompoundNBT();
-		write(nbt);
-		return new SUpdateTileEntityPacket(getBlockPos(), -1, nbt);
-	}
-
-	@Override
-	public void onDataPacket(NetworkManager net, SUpdateTileEntityPacket pkt) {
-		read(level.getBlockState(worldPosition), pkt.getTag());
-	}
-
 	private void sendUpdate() {
 		setChanged();
-		level.sendBlockUpdated(worldPosition, SimpleShops.simple_shop.defaultBlockState(), SimpleShops.simple_shop.defaultBlockState(), 3);
-	}
-
-	@Override
-	public CompoundNBT getUpdateTag() {
-		CompoundNBT tag = super.getUpdateTag();
-		write(tag);
-		return tag;
-	}
-
-	@Override
-	public void handleUpdateTag(BlockState state, CompoundNBT tag) {
-		read(state, tag);
-		super.handleUpdateTag(state, tag);
+		BlockState defaultBlockState = Registry.SIMPLE_SHOP.get().defaultBlockState();
+		level.sendBlockUpdated(worldPosition, defaultBlockState, defaultBlockState, 3);
 	}
 
 //	@Override

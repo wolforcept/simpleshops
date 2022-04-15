@@ -2,37 +2,39 @@ package wolforce.simpleshops;
 
 import java.util.List;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.BlockItemUseContext;
-import net.minecraft.item.ItemStack;
-import net.minecraft.state.EnumProperty;
-import net.minecraft.state.StateContainer;
-import net.minecraft.state.StateContainer.Builder;
-import net.minecraft.state.properties.BlockStateProperties;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.Direction;
-import net.minecraft.util.Hand;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.util.math.shapes.ISelectionContext;
-import net.minecraft.util.math.shapes.VoxelShape;
-import net.minecraft.util.math.shapes.VoxelShapes;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.StringTextComponent;
-import net.minecraft.world.IBlockReader;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TextComponent;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.EntityBlock;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.StateDefinition.Builder;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.EnumProperty;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.Shapes;
+import net.minecraft.world.phys.shapes.VoxelShape;
 
-public class SimpleShopBlock extends Block {
+public class SimpleShopBlock extends Block implements EntityBlock {
 
 	private static final float F = 1f / 16f;
-	private static final VoxelShape shape = VoxelShapes.box(F, 0, F, 15 * F, 11 * F, 15 * F);
-	private boolean isCreative;
+	private static final VoxelShape shape = Shapes.box(F, 0, F, 15 * F, 11 * F, 15 * F);
 	public static final EnumProperty<Direction> FACING = BlockStateProperties.HORIZONTAL_FACING;
+
+	public final boolean isCreative;
 
 	public SimpleShopBlock(Properties props, boolean isCreative) {
 		super(props);
@@ -45,29 +47,19 @@ public class SimpleShopBlock extends Block {
 		builder.add(FACING);
 	}
 
-	protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
+	protected void fillStateContainer(StateDefinition.Builder<Block, BlockState> builder) {
 		builder.add(FACING);
 	}
 
-	public BlockState getStateForPlacement(BlockItemUseContext context) {
+	public BlockState getStateForPlacement(BlockPlaceContext context) {
 		return this.defaultBlockState().setValue(FACING, context.getHorizontalDirection());
 	}
 
 	@Override
-	public boolean hasTileEntity(BlockState state) {
-		return true;
-	}
-
-	@Override
-	public TileEntity createTileEntity(BlockState state, IBlockReader world) {
-		return SimpleShopTileEntity.TYPE.get().create();
-	}
-
-	@Override
-	public void setPlacedBy(World world, BlockPos pos, BlockState state, LivingEntity entity, ItemStack stack) {
+	public void setPlacedBy(Level world, BlockPos pos, BlockState state, LivingEntity entity, ItemStack stack) {
 		if (world.isClientSide)
 			return;
-		TileEntity _te = world.getBlockEntity(pos);
+		BlockEntity _te = world.getBlockEntity(pos);
 		if (!(_te instanceof SimpleShopTileEntity))
 			return;
 		SimpleShopTileEntity te = (SimpleShopTileEntity) _te;
@@ -75,12 +67,12 @@ public class SimpleShopBlock extends Block {
 	}
 
 	@Override
-	public ActionResultType use(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult trace) {
+	public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult trace) {
 		if (world.isClientSide)
-			return ActionResultType.SUCCESS;
-		TileEntity _te = world.getBlockEntity(pos);
+			return InteractionResult.SUCCESS;
+		BlockEntity _te = world.getBlockEntity(pos);
 		if (!(_te instanceof SimpleShopTileEntity))
-			return ActionResultType.PASS;
+			return InteractionResult.PASS;
 		SimpleShopTileEntity te = (SimpleShopTileEntity) _te;
 
 		if (te.isOwner(this, player)) {
@@ -103,14 +95,14 @@ public class SimpleShopBlock extends Block {
 		} else {
 			te.tryBuy(player, player.getItemInHand(hand), isCreative);
 		}
-		return ActionResultType.SUCCESS;
+		return InteractionResult.SUCCESS;
 	}
 
 	@Override
-	public void attack(BlockState state, World world, BlockPos pos, PlayerEntity player) {
+	public void attack(BlockState state, Level world, BlockPos pos, Player player) {
 		if (world.isClientSide)
 			return;
-		TileEntity _te = world.getBlockEntity(pos);
+		BlockEntity _te = world.getBlockEntity(pos);
 		if (!(_te instanceof SimpleShopTileEntity))
 			return;
 		SimpleShopTileEntity te = (SimpleShopTileEntity) _te;
@@ -124,18 +116,23 @@ public class SimpleShopBlock extends Block {
 	}
 
 	@Override
-	public VoxelShape getShape(BlockState p_220053_1_, IBlockReader p_220053_2_, BlockPos p_220053_3_, ISelectionContext p_220053_4_) {
+	public VoxelShape getShape(BlockState p_220053_1_, BlockGetter p_220053_2_, BlockPos p_220053_3_, CollisionContext p_220053_4_) {
 		return shape;
 	}
 
 	@Override
-	public void appendHoverText(ItemStack stack, IBlockReader world, List<ITextComponent> lines, ITooltipFlag f) {
+	public void appendHoverText(ItemStack stack, BlockGetter world, List<Component> lines, TooltipFlag f) {
 		super.appendHoverText(stack, world, lines, f);
-		lines.add(new StringTextComponent("Set the cost with Right Click"));
-		lines.add(new StringTextComponent("Insert stacks to sell with Right Click"));
-		lines.add(new StringTextComponent("Withdraw profits with Left Click"));
-		lines.add(new StringTextComponent("Clear/Drop shop with Shift Left Click"));
+		lines.add(new TextComponent("Set the cost with Right Click"));
+		lines.add(new TextComponent("Insert stacks to sell with Right Click"));
+		lines.add(new TextComponent("Withdraw profits with Left Click"));
+		lines.add(new TextComponent("Clear/Drop shop with Shift Left Click"));
 		if (isCreative)
-			lines.add(new StringTextComponent("Creative Simple Shops can only be set/changed in Creative Mode."));
+			lines.add(new TextComponent("Creative Simple Shops can only be set/changed in Creative Mode."));
+	}
+
+	@Override
+	public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
+		return new SimpleShopTileEntity(pos, state);
 	}
 }
