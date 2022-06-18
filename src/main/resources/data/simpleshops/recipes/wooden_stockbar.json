@@ -1,0 +1,21 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"pattern": [
+		"ABA"
+	],
+	"key": {
+		"A": [
+			{
+				"tag": "minecraft:planks"
+			}
+		],
+		"B": [
+			{
+				"item": "minecraft:brown_dye"
+			}
+		]
+	},
+	"result": {
+		"item": "simpleshops:wooden_stockbar"
+	}
+}

@@ -1,0 +1,21 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"pattern": [
+		"ABA"
+	],
+	"key": {
+		"A": [
+			{
+				"tag": "minecraft:planks"
+			}
+		],
+		"B": [
+			{
+				"item": "minecraft:green_dye"
+			}
+		]
+	},
+	"result": {
+		"item": "simpleshops:green_stockbar"
+	}
+}

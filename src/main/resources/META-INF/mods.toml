@@ -1,12 +1,12 @@
 modLoader="javafml" #mandatory
 #UPDATE
-loaderVersion="[36,)"
+loaderVersion="[40,)"
 license="All rights reserved"
 
 [[mods]] #mandatory
 
 modId="simpleshops"
-version="1.1.2"
+version="1.1.4"
 displayName="Simple Shops"
 
 #updateJSONURL="http://myurl.me/"
@@ -22,16 +22,3 @@ authors="Wolforce"
 description='''
 A simple shop mod
 '''
-
-[[dependencies.megastructures]]
-    modId="forge" #mandatory
-    mandatory=true #mandatory
-    versionRange="[36,)"
-    ordering="NONE"
-    side="BOTH"
-[[dependencies.megastructures]]
-    modId="minecraft"
-    mandatory=true
-    versionRange="[1.16.5,1.17)"
-    ordering="NONE"
-    side="BOTH"
