@@ -23,7 +23,7 @@ public class Registry {
 	public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS,
 			SimpleShops.MODID);
 	public static final DeferredRegister<BlockEntityType<?>> TILES = DeferredRegister
-			.create(ForgeRegistries.BLOCK_ENTITIES, SimpleShops.MODID);
+			.create(ForgeRegistries.BLOCK_ENTITY_TYPES, SimpleShops.MODID);
 
 	public static void registerBus(IEventBus bus) {
 		TAB = new CreativeModeTab(CreativeModeTab.getGroupCountSafe(), "Simple Shops") {
@@ -42,7 +42,7 @@ public class Registry {
 
 	// block materials
 	public static Block.Properties wood = Block.Properties.of(Material.WOOD, MaterialColor.WOOD).sound(SoundType.WOOD)//
-			.strength(-1.0F, 3600000.0F).noDrops().noOcclusion();
+			.strength(-1.0F, 3600000.0F).noLootTable().noOcclusion();
 
 	// Simple Shop
 	public static final String SIMPLE_SHOP_REGNAME = "simple_shop";

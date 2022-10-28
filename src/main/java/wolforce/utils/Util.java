@@ -1,5 +1,6 @@
 package wolforce.utils;
 
+import java.awt.*;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
@@ -16,9 +17,7 @@ import it.unimi.dsi.fastutil.doubles.DoubleArrayList;
 import it.unimi.dsi.fastutil.doubles.DoubleList;
 import net.minecraft.commands.arguments.item.ItemInput;
 import net.minecraft.commands.arguments.item.ItemParser;
-import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
-import net.minecraft.network.chat.TextComponent;
+import net.minecraft.core.*;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -31,6 +30,9 @@ import net.minecraft.world.phys.shapes.BitSetDiscreteVoxelShape;
 import net.minecraft.world.phys.shapes.DiscreteVoxelShape;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraft.network.chat.Component;
+import net.minecraftforge.registries.RegistryManager;
+
 
 public class Util {
 
@@ -42,8 +44,8 @@ public class Util {
 		return new ResourceLocation(modid, path);
 	}
 
-	public static TextComponent[] stringsToComponents(String[] value) {
-		return (TextComponent[]) Arrays.stream(value).map(x -> new TextComponent(x)).toArray();
+	public static Component[] stringsToComponents(String[] value) {
+		return (Component[]) Arrays.stream(value).map(x -> Component.literal(x)).toArray();
 	}
 
 	public static VoxelShape voxelShape(double x1, double y1, double z1, double x2, double y2, double z2) {
@@ -174,8 +176,10 @@ public class Util {
 		try {
 			String[] parts = str.split(" ");
 			int count = parts.length > 1 ? Integer.parseInt(parts[1]) : 1;
-			ItemParser itemparser = (new ItemParser(new StringReader(parts[0]), false)).parse();
-			return new ItemInput(itemparser.getItem(), itemparser.getNbt()).createItemStack(count, false);
+
+			ItemParser.ItemResult resultItem = ItemParser.parseForItem(HolderLookup.forRegistry(DefaultedRegistry.ITEM), new StringReader(parts[0]));
+
+			return new ItemInput(resultItem.item(), resultItem.nbt()).createItemStack(count, false);
 		} catch (CommandSyntaxException e) {
 			return ItemStack.EMPTY;
 		}

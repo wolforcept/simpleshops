@@ -2,7 +2,8 @@ package wolforce.simpleshops;
 
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
-import net.minecraft.network.chat.TextComponent;
+
+import java.awt.*;
 
 public enum SimplesShopsTutorial {
 	a("Set the cost with Right Click"), //
@@ -31,6 +32,6 @@ public enum SimplesShopsTutorial {
 	}
 
 	Component createTextComponent() {
-		return new TextComponent(text).setStyle(Style.EMPTY.withColor(color));
+		return Component.literal(text).setStyle(Style.EMPTY.withColor(color));
 	}
 }

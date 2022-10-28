@@ -27,6 +27,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.HalfTransparentBlock;
 import net.minecraft.world.level.block.StainedGlassPaneBlock;
 import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.client.ForgeHooksClient;
 import wolforce.utils.Vec3f;
 import wolforce.utils.client.CustomVertexConsumer.ColorAction;
 import wolforce.utils.stacks.UtilItemStack;
@@ -239,9 +240,10 @@ public class UtilRenderItem {
 				} else {
 					flag1 = true;
 				}
-				if (bakedModel.isLayered()) {
-					net.minecraftforge.client.ForgeHooksClient.drawItemLayered(itemRenderer, bakedModel, stack,
-							poseStack, buffer, combinedLight, combinedOverlay, flag1);
+
+				//bakedModel.isLayered()
+				if (false) {
+					//net.minecraftforge.client.ForgeHooksClient.drawItemLayered(itemRenderer, bakedModel, stack, poseStack, buffer, combinedLight, combinedOverlay, flag1);
 				} else {
 					RenderType rendertype = ItemBlockRenderTypes.getRenderType(stack, flag1);
 					VertexConsumer vertexconsumer;
@@ -272,8 +274,8 @@ public class UtilRenderItem {
 							new CustomVertexConsumer(vertexconsumer, colorAction));
 				}
 			} else {
-				net.minecraftforge.client.RenderProperties.get(stack).getItemStackRenderer().renderByItem(stack,
-						transformType, poseStack, buffer, combinedLight, combinedOverlay);
+
+				// net.minecraftforge.client.RenderProperties.get(stack).getItemStackRenderer().renderByItem(stack, transformType, poseStack, buffer, combinedLight, combinedOverlay);
 			}
 
 			poseStack.popPose();

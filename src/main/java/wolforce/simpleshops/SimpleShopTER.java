@@ -14,13 +14,15 @@ import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.client.resources.model.BakedModel;
-import net.minecraft.network.chat.TextComponent;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.LightLayer;
 import net.minecraft.world.level.block.state.BlockState;
 import wolforce.utils.client.UtilRender;
 import wolforce.utils.client.UtilRenderItem;
+
+import java.awt.*;
 
 public class SimpleShopTER implements BlockEntityRenderer<SimpleShopTileEntity> {
 
@@ -145,7 +147,7 @@ public class SimpleShopTER implements BlockEntityRenderer<SimpleShopTileEntity> 
 				matrix.scale(.7f, .7f, .7f);
 				matrix.translate(-2, 3, 0);
 			}
-			font.draw(matrix, new TextComponent("x" + renderStack.getCount()), 0, 0, 0);
+			font.draw(matrix, Component.literal("x" + renderStack.getCount()), 0, 0, 0);
 			matrix.popPose(); // END RENDER TEXT
 
 		}
@@ -174,7 +176,7 @@ public class SimpleShopTER implements BlockEntityRenderer<SimpleShopTileEntity> 
 			matrix.mulPose(new Quaternion(Vector3f.YN, 90, true));
 			matrix.mulPose(new Quaternion(Vector3f.XN, 90, true));
 			matrix.translate(renderStack2.getCount() > 9 ? 11 : 15, -12, -27.55);
-			font.draw(matrix, new TextComponent("x" + renderStack2.getCount()), 0, 0, 0);
+			font.draw(matrix, Component.literal("x" + renderStack2.getCount()), 0, 0, 0);
 			matrix.popPose();
 		}
 

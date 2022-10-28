@@ -9,10 +9,10 @@ import java.lang.reflect.Field;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
-import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.IForgeRegistry;
+import net.minecraftforge.registries.RegisterEvent;
 
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
 public class UtilBlockRegistry {
@@ -34,9 +34,9 @@ public class UtilBlockRegistry {
 	}
 
 	@SubscribeEvent
-	public static void onItemsRegistry(final RegistryEvent.Register<Item> event) {
+	public static void onItemsRegistry(final RegisterEvent event) {
 		try {
-			IForgeRegistry<Item> registry = event.getRegistry();
+			IForgeRegistry<Item> registry = event.getForgeRegistry();
 
 			for (Field field : blocksClass.getDeclaredFields()) {
 
@@ -45,8 +45,7 @@ public class UtilBlockRegistry {
 					BlockItem item = block instanceof BlockWithItemProperties blockWithProps //
 							? new BlockItem(block, blockWithProps.getItemProperties()) //
 							: new BlockItem(block, new Item.Properties());
-					item.setRegistryName(reg.regName());
-					registry.register(item);
+					registry.register(reg.regName(), item);
 				}
 			}
 		} catch (Exception e) {
@@ -55,16 +54,17 @@ public class UtilBlockRegistry {
 	}
 
 	@SubscribeEvent
-	public static void onBlocksRegistry(final RegistryEvent.Register<Block> event) {
+	public static void onBlocksRegistry(final RegisterEvent event) {
 		try {
-			IForgeRegistry<Block> registry = event.getRegistry();
+			IForgeRegistry<Block> registry = event.getForgeRegistry();
 
 			for (Field field : blocksClass.getDeclaredFields()) {
 
 				if (field.isAnnotationPresent(RegBlock.class) && field.get(null) instanceof Block block) {
 					RegBlock reg = field.getAnnotation(RegBlock.class);
-					block.setRegistryName(reg.regName());
-					registry.register(block);
+
+					//block.setRegistryName();
+					registry.register(reg.regName(), block);
 				}
 			}
 		} catch (Exception e) {

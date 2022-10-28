@@ -7,10 +7,10 @@ import java.lang.annotation.Target;
 import java.lang.reflect.Field;
 
 import net.minecraft.world.item.Item;
-import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.IForgeRegistry;
+import net.minecraftforge.registries.RegisterEvent;
 
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
 public class UtilItemRegistry {
@@ -28,16 +28,15 @@ public class UtilItemRegistry {
 	}
 
 	@SubscribeEvent
-	public static void onItemsRegistry(final RegistryEvent.Register<Item> event) {
+	public static void onItemsRegistry(final RegisterEvent event) {
 		try {
-			IForgeRegistry<Item> registry = event.getRegistry();
+			IForgeRegistry<Item> registry = event.getForgeRegistry();
 
 			for (Field field : itemsClass.getDeclaredFields()) {
 
 				if (field.isAnnotationPresent(RegItem.class) && field.get(null) instanceof Item item) {
 					RegItem reg = field.getAnnotation(RegItem.class);
-					item.setRegistryName(reg.regName());
-					registry.register(item);
+					registry.register(reg.regName(), item);
 				}
 			}
 		} catch (Exception e) {

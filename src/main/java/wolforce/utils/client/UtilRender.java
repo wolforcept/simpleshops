@@ -44,7 +44,6 @@ public class UtilRender {
 		bufferbuilder.vertex(m, x2, y2, 0).uv(u2 / textureWidth, v2 / textureHeight).color(a, a, a, 255).endVertex();
 		bufferbuilder.vertex(m, x2, y1, 0).uv(u2 / textureWidth, v1 / textureHeight).color(a, a, a, 255).endVertex();
 		bufferbuilder.end();
-		BufferUploader.end(bufferbuilder);
 		RenderSystem.disableDepthTest();
 	}
 
@@ -85,7 +84,6 @@ public class UtilRender {
 		bufferbuilder.vertex(pMatrix, pX1, pY1, pBlitOffset)
 				.color(color >> 16 & 0xFF, color >> 8 & 0xFF, color & 0xFF, 255).uv(pMinU, pMinV).endVertex();
 		bufferbuilder.end();
-		BufferUploader.end(bufferbuilder);
 	}
 
 }
