@@ -29,6 +29,8 @@ public class UtilItemRegistry {
 
 	@SubscribeEvent
 	public static void onItemsRegistry(final RegistryEvent.Register<Item> event) {
+		if (itemsClass == null)
+			return;
 		try {
 			IForgeRegistry<Item> registry = event.getRegistry();
 

@@ -8,6 +8,7 @@ import com.mojang.math.Quaternion;
 import com.mojang.math.Vector3f;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.ItemModelShaper;
@@ -26,6 +27,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.HalfTransparentBlock;
 import net.minecraft.world.level.block.StainedGlassPaneBlock;
+import net.minecraft.world.phys.Vec2;
 import net.minecraft.world.phys.Vec3;
 import wolforce.utils.Vec3f;
 import wolforce.utils.client.CustomVertexConsumer.ColorAction;
@@ -49,6 +51,8 @@ public class UtilRenderItem {
 	private Integer combinedLight = null;
 	private Integer combinedOverlay = null;
 	private boolean rotate = false;
+	private Screen screen;
+	private Vec2 mousePos;
 
 	private static final Vec3 DEFAULT_POSITION = new Vec3(0, 0, 0);
 	private static final Vec3f DEFAULT_SCALE = new Vec3f(1, 1, 1);
@@ -113,6 +117,16 @@ public class UtilRenderItem {
 		return this;
 	}
 
+	public UtilRenderItem screen(Screen screen) {
+		this.screen = screen;
+		return this;
+	}
+
+	public UtilRenderItem mouse(Vec2 mousePos) {
+		this.mousePos = mousePos;
+		return this;
+	}
+
 	public void renderGui() {
 
 		if (!UtilItemStack.isValid(stack))
@@ -144,17 +158,24 @@ public class UtilRenderItem {
 		Lighting.setupForFlatItems();
 
 		if (colorAction != null)
-			renderCustomVertexConsumer(stack, ItemTransforms.TransformType.GUI, false, new PoseStack(), buffer,
-					combinedLight, combinedOverlay, model, colorAction);
+			renderCustomVertexConsumer(stack, ItemTransforms.TransformType.GUI, false, new PoseStack(), buffer, combinedLight, combinedOverlay, model, colorAction);
 		else
-			renderItem.render(stack, ItemTransforms.TransformType.GUI, false, new PoseStack(), buffer, combinedLight,
-					combinedOverlay, model);
+			renderItem.render(stack, ItemTransforms.TransformType.GUI, false, new PoseStack(), buffer, combinedLight, combinedOverlay, model);
 
 		if (buffer instanceof BufferSource bufferSource)
 			bufferSource.endBatch();
 
 		poseStack.popPose();
 		RenderSystem.applyModelViewMatrix();
+
+		poseStack.pushPose();
+		poseStack.setIdentity();
+		if (screen != null && mousePos != null) {
+			if (mousePos.x > position.x && mousePos.y > position.y && mousePos.x < position.x + 16 && mousePos.y < position.y + 16)
+//				screen.renderTooltip(poseStack, screen.getTooltipFromItem(stack), combinedLight, combinedOverlay);
+				screen.renderComponentTooltip(poseStack, screen.getTooltipFromItem(stack), (int) mousePos.x, (int) mousePos.y, stack);
+		}
+		poseStack.popPose();
 
 	}
 
@@ -194,54 +215,44 @@ public class UtilRenderItem {
 		}
 
 		if (colorAction != null) {
-			renderCustomVertexConsumer(stack, ItemTransforms.TransformType.GROUND, false, poseStack, buffer,
-					combinedLight, combinedOverlay, model, colorAction);
+			renderCustomVertexConsumer(stack, ItemTransforms.TransformType.GROUND, false, poseStack, buffer, combinedLight, combinedOverlay, model, colorAction);
 		} else {
-			renderItem.render(stack, ItemTransforms.TransformType.GROUND, false, poseStack, buffer, combinedLight,
-					combinedOverlay, model);
+			renderItem.render(stack, ItemTransforms.TransformType.GROUND, false, poseStack, buffer, combinedLight, combinedOverlay, model);
 		}
 
 		poseStack.popPose();
 
 	}
 
-	public static void renderCustomVertexConsumer(ItemStack stack, ItemTransforms.TransformType transformType,
-			boolean p_115146_, PoseStack poseStack, MultiBufferSource buffer, int combinedLight, int combinedOverlay,
-			BakedModel bakedModel, ColorAction colorAction) {
+	public static void renderCustomVertexConsumer(ItemStack stack, ItemTransforms.TransformType transformType, boolean p_115146_, PoseStack poseStack, MultiBufferSource buffer, int combinedLight,
+			int combinedOverlay, BakedModel bakedModel, ColorAction colorAction) {
 
 		ItemRenderer itemRenderer = MC.getItemRenderer();
 		ItemModelShaper itemModelShaper = itemRenderer.getItemModelShaper();
 
 		if (!stack.isEmpty()) {
 			poseStack.pushPose();
-			boolean flag = transformType == ItemTransforms.TransformType.GUI
-					|| transformType == ItemTransforms.TransformType.GROUND
-					|| transformType == ItemTransforms.TransformType.FIXED;
+			boolean flag = transformType == ItemTransforms.TransformType.GUI || transformType == ItemTransforms.TransformType.GROUND || transformType == ItemTransforms.TransformType.FIXED;
 			if (flag) {
 				if (stack.is(Items.TRIDENT)) {
-					bakedModel = itemModelShaper.getModelManager()
-							.getModel(new ModelResourceLocation("minecraft:trident#inventory"));
+					bakedModel = itemModelShaper.getModelManager().getModel(new ModelResourceLocation("minecraft:trident#inventory"));
 				} else if (stack.is(Items.SPYGLASS)) {
-					bakedModel = itemModelShaper.getModelManager()
-							.getModel(new ModelResourceLocation("minecraft:spyglass#inventory"));
+					bakedModel = itemModelShaper.getModelManager().getModel(new ModelResourceLocation("minecraft:spyglass#inventory"));
 				}
 			}
 
-			bakedModel = net.minecraftforge.client.ForgeHooksClient.handleCameraTransforms(poseStack, bakedModel,
-					transformType, p_115146_);
+			bakedModel = net.minecraftforge.client.ForgeHooksClient.handleCameraTransforms(poseStack, bakedModel, transformType, p_115146_);
 			poseStack.translate(-0.5D, -0.5D, -0.5D);
 			if (!bakedModel.isCustomRenderer() && (!stack.is(Items.TRIDENT) || flag)) {
 				boolean flag1;
-				if (transformType != ItemTransforms.TransformType.GUI && !transformType.firstPerson()
-						&& stack.getItem() instanceof BlockItem) {
+				if (transformType != ItemTransforms.TransformType.GUI && !transformType.firstPerson() && stack.getItem() instanceof BlockItem) {
 					Block block = ((BlockItem) stack.getItem()).getBlock();
 					flag1 = !(block instanceof HalfTransparentBlock) && !(block instanceof StainedGlassPaneBlock);
 				} else {
 					flag1 = true;
 				}
 				if (bakedModel.isLayered()) {
-					net.minecraftforge.client.ForgeHooksClient.drawItemLayered(itemRenderer, bakedModel, stack,
-							poseStack, buffer, combinedLight, combinedOverlay, flag1);
+					net.minecraftforge.client.ForgeHooksClient.drawItemLayered(itemRenderer, bakedModel, stack, poseStack, buffer, combinedLight, combinedOverlay, flag1);
 				} else {
 					RenderType rendertype = ItemBlockRenderTypes.getRenderType(stack, flag1);
 					VertexConsumer vertexconsumer;
@@ -255,8 +266,7 @@ public class UtilRenderItem {
 						}
 
 						if (flag1) {
-							vertexconsumer = ItemRenderer.getCompassFoilBufferDirect(buffer, rendertype,
-									posestack$pose);
+							vertexconsumer = ItemRenderer.getCompassFoilBufferDirect(buffer, rendertype, posestack$pose);
 						} else {
 							vertexconsumer = ItemRenderer.getCompassFoilBuffer(buffer, rendertype, posestack$pose);
 						}
@@ -268,12 +278,10 @@ public class UtilRenderItem {
 						vertexconsumer = ItemRenderer.getFoilBuffer(buffer, rendertype, true, stack.hasFoil());
 					}
 
-					itemRenderer.renderModelLists(bakedModel, stack, combinedLight, combinedOverlay, poseStack,
-							new CustomVertexConsumer(vertexconsumer, colorAction));
+					itemRenderer.renderModelLists(bakedModel, stack, combinedLight, combinedOverlay, poseStack, new CustomVertexConsumer(vertexconsumer, colorAction));
 				}
 			} else {
-				net.minecraftforge.client.RenderProperties.get(stack).getItemStackRenderer().renderByItem(stack,
-						transformType, poseStack, buffer, combinedLight, combinedOverlay);
+				net.minecraftforge.client.RenderProperties.get(stack).getItemStackRenderer().renderByItem(stack, transformType, poseStack, buffer, combinedLight, combinedOverlay);
 			}
 
 			poseStack.popPose();

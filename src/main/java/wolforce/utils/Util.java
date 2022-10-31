@@ -48,15 +48,11 @@ public class Util {
 
 	public static VoxelShape voxelShape(double x1, double y1, double z1, double x2, double y2, double z2) {
 		try {
-			Constructor<ArrayVoxelShape> ctor = ArrayVoxelShape.class.getConstructor(DiscreteVoxelShape.class,
-					DoubleList.class, DoubleList.class, DoubleList.class);
+			Constructor<ArrayVoxelShape> ctor = ArrayVoxelShape.class.getConstructor(DiscreteVoxelShape.class, DoubleList.class, DoubleList.class, DoubleList.class);
 			ctor.setAccessible(true);
-			return ctor.newInstance(new BitSetDiscreteVoxelShape(0, 0, 0),
-					(DoubleList) (new DoubleArrayList(new double[] { 0.0D })),
-					(DoubleList) (new DoubleArrayList(new double[] { 0.0D })),
+			return ctor.newInstance(new BitSetDiscreteVoxelShape(0, 0, 0), (DoubleList) (new DoubleArrayList(new double[] { 0.0D })), (DoubleList) (new DoubleArrayList(new double[] { 0.0D })),
 					(DoubleList) (new DoubleArrayList(new double[] { 0.0D })));
-		} catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException
-				| NoSuchMethodException | SecurityException e) {
+		} catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException | SecurityException e) {
 			e.printStackTrace();
 		}
 		return null;
@@ -267,8 +263,7 @@ public class Util {
 //		return 0xff000000 | (r << 16) | (g << 8) | (b << 0);
 	}
 
-	public static boolean callBooleanMethod(Object obj, String methodName, Class<?> clazz, Object[] args,
-			Class<?>[] paramTypes) {
+	public static boolean callBooleanMethod(Object obj, String methodName, Class<?> clazz, Object[] args, Class<?>[] paramTypes) {
 
 		try {
 			Method method = clazz.getDeclaredMethod(methodName, paramTypes);
@@ -277,12 +272,9 @@ public class Util {
 			if (ret instanceof Boolean)
 				return (Boolean) ret;
 			else
-				System.err.println("The return was not a boolean from method " + methodName + " from object "
-						+ obj.toString() + " of class " + obj.getClass().getName());
-		} catch (NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException
-				| InvocationTargetException e) {
-			System.err.println("Could not call boolean method " + methodName + " from object " + obj.toString()
-					+ " of class " + obj.getClass().getName());
+				System.err.println("The return was not a boolean from method " + methodName + " from object " + obj.toString() + " of class " + obj.getClass().getName());
+		} catch (NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+			System.err.println("Could not call boolean method " + methodName + " from object " + obj.toString() + " of class " + obj.getClass().getName());
 			e.printStackTrace();
 		}
 
@@ -309,6 +301,14 @@ public class Util {
 	}
 
 	public static ItemStack stackListFind_moreOrEqualNr(ItemStack stack1, List<ItemStack> possibleInputs) {
+		for (ItemStack stack : possibleInputs) {
+			if (ItemStack.isSame(stack, stack1) && stack1.getCount() >= stack.getCount())
+				return stack;
+		}
+		return null;
+	}
+
+	public static ItemStack stackListFindWithNbt_moreOrEqualNr(ItemStack stack1, List<ItemStack> possibleInputs) {
 		for (ItemStack stack : possibleInputs) {
 			if (ItemStack.isSameItemSameTags(stack, stack1) && stack1.getCount() >= stack.getCount())
 				return stack;

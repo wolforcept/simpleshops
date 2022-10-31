@@ -10,11 +10,9 @@ import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.event.RegistryEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.IForgeRegistry;
 
-@Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
+//@Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
 public class UtilBlockRegistry {
 
 	public interface BlockWithItemProperties {
@@ -33,7 +31,7 @@ public class UtilBlockRegistry {
 		UtilBlockRegistry.blocksClass = blocksClass;
 	}
 
-	@SubscribeEvent
+//	@SubscribeEvent
 	public static void onItemsRegistry(final RegistryEvent.Register<Item> event) {
 		try {
 			IForgeRegistry<Item> registry = event.getRegistry();
@@ -54,8 +52,10 @@ public class UtilBlockRegistry {
 		}
 	}
 
-	@SubscribeEvent
+//	@SubscribeEvent
 	public static void onBlocksRegistry(final RegistryEvent.Register<Block> event) {
+		if (blocksClass == null)
+			return;
 		try {
 			IForgeRegistry<Block> registry = event.getRegistry();
 
