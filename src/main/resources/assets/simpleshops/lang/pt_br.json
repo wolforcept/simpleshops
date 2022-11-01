@@ -1,0 +1,12 @@
+{
+	"itemGroup.Simple Shops": "Lojas simples",
+	
+    "item.simpleshops.green_stockbar" : "Visualizador de ações verdes",
+    "item.simpleshops.red_stockbar" : "Visualizador de ações vermelhas",
+    "item.simpleshops.wooden_stockbar" : "Visualizador de Estoque de Madeira",
+    "item.simpleshops.quartz_stockbar" : "Visualizador de Estoque de Quartzo",
+
+	"block.simpleshops.simple_shop": "Loja simples",
+	"block.simpleshops.creative_simple_shop": "Loja simples criativa"
+	
+}
