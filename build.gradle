@@ -1,17 +1,8 @@
-buildscript {
-    repositories {
-        maven { url = 'https://maven.minecraftforge.net' }
-        mavenCentral()
-    }
-    dependencies {
-        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: "$forgegradle_version", changing: true
-    }
-}
 plugins {
     id 'eclipse'
     id 'maven-publish'
+    id 'net.minecraftforge.gradle' version "$forgegradle_version"
 }
-apply plugin: 'net.minecraftforge.gradle'
 
 version = "$mod_version"
 group = "wolforce.$mod_id"
