@@ -2,8 +2,8 @@
 	"credit": "Made with Blockbench",
 	"texture_size": [32, 32],
 	"textures": {
-		"0": "simpleshops:blocks/simple_shop",
-		"particle": "simpleshops:blocks/simple_shop"
+		"0": "simpleshops:block/simple_shop",
+		"particle": "simpleshops:block/simple_shop"
 	},
 	"elements": [
 		{

@@ -27,35 +27,35 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import wolforce.utils.stacks.UtilInventory;
+import wolforce.simpleshops.utils.Util;
 
 public class SimpleShopBlock extends Block implements EntityBlock {
-
+	
 	private static final float F = 1f / 16f;
 	private static final VoxelShape shape = Shapes.box(F, 0, F, 15 * F, 11 * F, 15 * F);
 	public static final EnumProperty<Direction> FACING = BlockStateProperties.HORIZONTAL_FACING;
-
+	
 	public final boolean isCreative;
-
+	
 	public SimpleShopBlock(Properties props, boolean isCreative) {
 		super(props);
 		this.isCreative = isCreative;
 		this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH));
 	}
-
+	
 	@Override
 	protected void createBlockStateDefinition(Builder<Block, BlockState> builder) {
 		builder.add(FACING);
 	}
-
+	
 	protected void fillStateContainer(StateDefinition.Builder<Block, BlockState> builder) {
 		builder.add(FACING);
 	}
-
+	
 	public BlockState getStateForPlacement(BlockPlaceContext context) {
 		return this.defaultBlockState().setValue(FACING, context.getHorizontalDirection());
 	}
-
+	
 	@Override
 	public void setPlacedBy(Level world, BlockPos pos, BlockState state, LivingEntity entity, ItemStack stack) {
 		if (world.isClientSide)
@@ -66,9 +66,9 @@ public class SimpleShopBlock extends Block implements EntityBlock {
 		SimpleShopTileEntity te = (SimpleShopTileEntity) _te;
 		te.setOwner(entity);
 	}
-
+	
 	private HashMap<String, Long> playersLastClick = new HashMap<>();
-
+	
 	@Override
 	public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult trace) {
 		if (world.isClientSide)
@@ -77,11 +77,11 @@ public class SimpleShopBlock extends Block implements EntityBlock {
 		if (!(_te instanceof SimpleShopTileEntity))
 			return InteractionResult.PASS;
 		SimpleShopTileEntity te = (SimpleShopTileEntity) _te;
-
+		
 		if (te.isOwner(this, player)) {
 			ItemStack handStack = player.getItemInHand(hand);
 			if (!handStack.isEmpty()) {
-
+				
 				if (!isCreative && handStack.getItem() instanceof StockBarItem) {
 					ItemStack prevBar = te.getBar();
 					if (prevBar != null && !prevBar.isEmpty()) {
@@ -93,7 +93,7 @@ public class SimpleShopBlock extends Block implements EntityBlock {
 					handStack.shrink(1);
 					return InteractionResult.SUCCESS;
 				}
-
+				
 				ItemStack cost = te.getCost();
 				if (cost.isEmpty()) {
 					te.setCost(handStack);
@@ -103,15 +103,15 @@ public class SimpleShopBlock extends Block implements EntityBlock {
 						te.setOutputStack(handStack);
 					} else if (out.isEmpty() || out.sameItem(handStack) && handStack.getCount() >= out.getCount()) {
 						player.setItemInHand(hand, te.insertInv(player, handStack));
-
+						
 					}
 				}
 			} else if (!isCreative) {
 				String id = player.getStringUUID();
 				if (playersLastClick.containsKey(id) && (System.currentTimeMillis() - playersLastClick.get(id) < 1000)) {
 					ItemStack out = te.getOutputStack().copy();
-					if (UtilInventory.hasRequiredStack(player, out)) {
-						UtilInventory.removeRequiredStack(player, out);
+					if (Util.hasRequiredStack(player, out)) {
+						Util.removeRequiredStack(player, out);
 						te.insertInv(player, out);
 					}
 				}
@@ -124,7 +124,7 @@ public class SimpleShopBlock extends Block implements EntityBlock {
 		}
 		return InteractionResult.SUCCESS;
 	}
-
+	
 	@Override
 	public void attack(BlockState state, Level world, BlockPos pos, Player player) {
 		if (world.isClientSide)
@@ -141,12 +141,12 @@ public class SimpleShopBlock extends Block implements EntityBlock {
 			}
 		}
 	}
-
+	
 	@Override
 	public VoxelShape getShape(BlockState p_220053_1_, BlockGetter p_220053_2_, BlockPos p_220053_3_, CollisionContext p_220053_4_) {
 		return shape;
 	}
-
+	
 	@Override
 	public void appendHoverText(ItemStack stack, BlockGetter world, List<Component> lines, TooltipFlag f) {
 		super.appendHoverText(stack, world, lines, f);
@@ -155,7 +155,7 @@ public class SimpleShopBlock extends Block implements EntityBlock {
 				lines.add(line.createTextComponent());
 		}
 	}
-
+	
 	@Override
 	public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
 		return new SimpleShopTileEntity(pos, state);

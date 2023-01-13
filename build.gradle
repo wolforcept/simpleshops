@@ -56,7 +56,7 @@ minecraft {
         }
 
         server {
-            taskName "$mod_id 18 server"
+            taskName "$mod_id $minecraft_version server"
             workingDirectory project.file('run_server')
             property 'forge.logging.markers', ''
             property 'forge.logging.console.level', 'info'
@@ -64,6 +64,22 @@ minecraft {
 
             mods {
                 mod {
+                    source sourceSets.main
+                }
+            }
+        }
+        
+        data {
+            taskName "$mod_id $minecraft_version data"
+            workingDirectory project.file('run')
+
+            property 'forge.logging.markers', 'REGISTRIES'
+            property 'forge.logging.console.level', 'debug'
+
+            args '--mod', '$mod_id', '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
+
+            mods {
+                hearthwell {
                     source sourceSets.main
                 }
             }
@@ -105,8 +121,8 @@ repositories {
 
 dependencies {
     minecraft "net.minecraftforge:forge:$minecraft_version-$forge_version"
-    compileOnly fg.deobf("mezz.jei:jei-$minecraft_version:$jei_version:api")
-    runtimeOnly fg.deobf("mezz.jei:jei-$minecraft_version:$jei_version")
+    //compileOnly fg.deobf("mezz.jei:jei-$minecraft_version:$jei_version:api")
+    //runtimeOnly fg.deobf("mezz.jei:jei-$minecraft_version:$jei_version")
 }
 
 jar {
