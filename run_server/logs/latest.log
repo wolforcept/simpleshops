@@ -1,52 +1,391 @@
-[13Jan2023 11:24:40.096] [main/INFO] [cpw.mods.modlauncher.Launcher/MODLAUNCHER]: ModLauncher running: args [--launchTarget, forgeserveruserdev, --gameDir, ., --fml.forgeVersion, 44.1.5, --fml.mcVersion, 1.19.3, --fml.forgeGroup, net.minecraftforge, --fml.mcpVersion, 20221207.122022]
-[13Jan2023 11:24:40.103] [main/INFO] [cpw.mods.modlauncher.Launcher/MODLAUNCHER]: ModLauncher 10.0.8+10.0.8+main.0ef7e830 starting: java version 18.0.1 by Oracle Corporation; OS Windows 10 arch amd64 version 10.0
-[13Jan2023 11:24:40.203] [main/INFO] [mixin/]: SpongePowered MIXIN Subsystem Version=0.8.5 Source=union:/C:/Users/Miguel/.gradle/caches/modules-2/files-2.1/org.spongepowered/mixin/0.8.5/9d1c0c3a304ae6697ecd477218fa61b850bf57fc/mixin-0.8.5.jar%23121!/ Service=ModLauncher Env=SERVER
-[13Jan2023 11:24:40.461] [main/WARN] [net.minecraftforge.fml.loading.moddiscovery.ModFileParser/LOADING]: Mod file C:\Users\Miguel\.gradle\caches\modules-2\files-2.1\net.minecraftforge\javafmllanguage\1.19.3-44.1.5\e04ae5fa4b97321137c7310371329dc28a8a2638\javafmllanguage-1.19.3-44.1.5.jar is missing mods.toml file
-[13Jan2023 11:24:40.468] [main/WARN] [net.minecraftforge.fml.loading.moddiscovery.ModFileParser/LOADING]: Mod file C:\Users\Miguel\.gradle\caches\modules-2\files-2.1\net.minecraftforge\lowcodelanguage\1.19.3-44.1.5\33c6ee2f0eef3dbfc40cca42c887be4e3be183db\lowcodelanguage-1.19.3-44.1.5.jar is missing mods.toml file
-[13Jan2023 11:24:40.476] [main/WARN] [net.minecraftforge.fml.loading.moddiscovery.ModFileParser/LOADING]: Mod file C:\Users\Miguel\.gradle\caches\modules-2\files-2.1\net.minecraftforge\mclanguage\1.19.3-44.1.5\c1938f8dd30769652ab9ba9deccb0d36677492f4\mclanguage-1.19.3-44.1.5.jar is missing mods.toml file
-[13Jan2023 11:24:40.483] [main/WARN] [net.minecraftforge.fml.loading.moddiscovery.ModFileParser/LOADING]: Mod file C:\Users\Miguel\.gradle\caches\modules-2\files-2.1\net.minecraftforge\fmlcore\1.19.3-44.1.5\3fcf1465bed11a8ff00d719bf4fa3891fd4ec00\fmlcore-1.19.3-44.1.5.jar is missing mods.toml file
-[13Jan2023 11:24:40.569] [main/INFO] [net.minecraftforge.fml.loading.moddiscovery.JarInJarDependencyLocator/]: No dependencies to load found. Skipping!
-[13Jan2023 11:24:41.551] [main/INFO] [cpw.mods.modlauncher.LaunchServiceHandler/MODLAUNCHER]: Launching target 'forgeserveruserdev' with arguments [--gameDir, .]
-[13Jan2023 11:24:45.279] [main/INFO] [net.minecraft.util.datafix.DataFixers/]: Building unoptimized datafixer
-[13Jan2023 11:24:48.324] [modloading-worker-0/INFO] [net.minecraftforge.common.ForgeMod/FORGEMOD]: Forge mod loading, version 44.1.5, for MC 1.19.3 with MCP 20221207.122022
-[13Jan2023 11:24:48.328] [modloading-worker-0/INFO] [net.minecraftforge.common.MinecraftForge/FORGE]: MinecraftForge v44.1.5 Initialized
-[13Jan2023 11:24:49.366] [Forge Version Check/INFO] [net.minecraftforge.fml.VersionChecker/]: [forge] Starting version check at https://files.minecraftforge.net/net/minecraftforge/forge/promotions_slim.json
-[13Jan2023 11:24:50.083] [Forge Version Check/INFO] [net.minecraftforge.fml.VersionChecker/]: [forge] Found status: AHEAD Current: 44.1.5 Target: null
-[13Jan2023 11:24:50.316] [main/INFO] [com.mojang.authlib.yggdrasil.YggdrasilAuthenticationService/]: Environment: authHost='https://authserver.mojang.com', accountsHost='https://api.mojang.com', sessionHost='https://sessionserver.mojang.com', servicesHost='https://api.minecraftservices.com', name='PROD'
-[13Jan2023 11:24:51.298] [main/WARN] [net.minecraft.server.packs.VanillaPackResourcesBuilder/]: Assets URL 'union:/C:/Users/Miguel/.gradle/caches/forge_gradle/minecraft_user_repo/net/minecraftforge/forge/1.19.3-44.1.5_mapped_official_1.19.3/forge-1.19.3-44.1.5_mapped_official_1.19.3-recomp.jar%23186!/assets/.mcassetsroot' uses unexpected schema
-[13Jan2023 11:24:51.298] [main/WARN] [net.minecraft.server.packs.VanillaPackResourcesBuilder/]: Assets URL 'union:/C:/Users/Miguel/.gradle/caches/forge_gradle/minecraft_user_repo/net/minecraftforge/forge/1.19.3-44.1.5_mapped_official_1.19.3/forge-1.19.3-44.1.5_mapped_official_1.19.3-recomp.jar%23186!/data/.mcassetsroot' uses unexpected schema
-[13Jan2023 11:24:54.235] [main/INFO] [net.minecraft.world.item.crafting.RecipeManager/]: Loaded 7 recipes
-[13Jan2023 11:24:54.827] [main/INFO] [net.minecraft.advancements.AdvancementList/]: Loaded 1179 advancements
-[13Jan2023 11:24:56.048] [Server thread/INFO] [net.minecraft.server.dedicated.DedicatedServer/]: Starting minecraft server version 1.19.3
-[13Jan2023 11:24:56.049] [Server thread/INFO] [net.minecraft.server.dedicated.DedicatedServer/]: Loading properties
-[13Jan2023 11:24:56.049] [Server thread/INFO] [net.minecraft.server.dedicated.DedicatedServer/]: Default game type: SURVIVAL
-[13Jan2023 11:24:56.049] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Generating keypair
-[13Jan2023 11:24:56.113] [Server thread/INFO] [net.minecraft.server.dedicated.DedicatedServer/]: Starting Minecraft server on *:25565
-[13Jan2023 11:24:56.164] [Server thread/INFO] [net.minecraft.server.network.ServerConnectionListener/]: Using default channel type
-[13Jan2023 11:24:56.433] [Server thread/WARN] [net.minecraft.server.dedicated.DedicatedServer/]: **** SERVER IS RUNNING IN OFFLINE/INSECURE MODE!
-[13Jan2023 11:24:56.434] [Server thread/WARN] [net.minecraft.server.[13Jan2023 11:24:57.268] [Forge Version Check/INFO] [net.minecraftforge.fml.VersionChecker/]: [forge] Found status: AHEAD Current: 44.1.5 Target: null
-[13Jan2023 11:24:57.891] [main/INFO] [com.mojang.authlib.yggdrasil.YggdrasilAuthenticationService/]: Environment: authHost='https://authserver.mojang.com', accountsHost='https://api.mojang.com', sessionHost='https://sessionserver.mojang.com', servicesHost='https://api.minecraftservices.com', name='PROD'
-[13Jan2023 11:24:57.967] [main/ERROR] [net.minecraft.server.Main/FATAL]: Failed to start the minecraft server
-java.io.IOException: The process cannot access the file because another process has locked a portion of the file
-	at sun.nio.ch.FileDispatcherImpl.write0(Native Method) ~[?:?]
-	at sun.nio.ch.FileDispatcherImpl.write[13Jan2023 11:25:00.159] [Worker-Main-12/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 0%
-[13Jan2023 11:25:00.159] [Worker-Main-12/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 0%
-[13Jan2023 11:25:00.160] [Worker-Main-12/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 0%
-[13Jan2023 11:25:00.160] [Worker-Main-15/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 0%
-[13Jan2023 11:25:00.161] [Worker-Main-15/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 0%
-[13Jan2023 11:25:00.189] [Worker-Main-15/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 0%
-[13Jan2023 11:25:00.688] [Worker-Main-15/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 39%
-[13Jan2023 11:25:01.013] [Server thread/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Time elapsed: 3325 ms
-[13Jan2023 11:25:01.013] [Server thread/INFO] [net.minecraft.server.dedicated.DedicatedServer/]: Done (4.520s)! For help, type "help"
-[13Jan2023 11:25:01.021] [Server thread/INFO] [net.minecraftforge.gametest.ForgeGameTestHooks/]: Enabled Gametest Namespaces: [simpleshops]
-[13Jan2023 11:25:01.027] [Server thread/INFO] [net.minecraftforge.server.permission.PermissionAPI/]: Successfully initialized permission handler forge:default_handler
-[13Jan2023 11:25:22.927] [Server thread/INFO] [net.minecraftforge.common.AdvancementLoadFix/]: Using new advancement loading for net.minecraft.server.PlayerAdvancements@57cc62a6
-[13Jan2023 11:25:23.030] [Server thread/INFO] [net.minecraft.server.players.PlayerList/]: WolforcePT[/[0:0:0:0:0:0:0:1]:57434] logged in with entity id 48 at (44.483475139323254, 88.0, -50.46169680753883)
-[13Jan2023 11:25:23.095] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: WolforcePT joined the game
-[13Jan2023 11:25:23.423] [Server thread/WARN] [net.minecraft.world.level.entity.PersistentEntitySectionManager/]: UUID of added entity already exists: Cow['Cow'/63, l='ServerLevel[world]', x=208.05, y=69.00, z=85.48]
-[13Jan2023 11:25:33.706] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: [WolforcePT: Set own game mode to Creative Mode]
-[13Jan2023 11:26:37.916] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: [WolforcePT: Set own game mode to Survival Mode]
-[13Jan2023 11:26:49.808] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: [WolforcePT: Set own game mode to Creative Mode]
-[13Jan2023 11:26:50.894] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: [WolforcePT: Set own game mode to Survival Mode]
-[13Jan2023 11:28:35.584] [Server thread/INFO] [net.minecraft.server.network.ServerGamePacketListenerImpl/]: WolforcePT lost connection: Disconnected
-[13Jan2023 11:28:35.585] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: WolforcePT left the game
+[23Feb2023 23:00:08.275] [main/INFO] [cpw.mods.modlauncher.Launcher/MODLAUNCHER]: ModLauncher running: args [--launchTarget, forgeserveruserdev, --gameDir, ., --fml.forgeVersion, 43.2.4, --fml.mcVersion, 1.19.2, --fml.forgeGroup, net.minecraftforge, --fml.mcpVersion, 20220805.130853]
+[23Feb2023 23:00:08.282] [main/INFO] [cpw.mods.modlauncher.Launcher/MODLAUNCHER]: ModLauncher 10.0.8+10.0.8+main.0ef7e830 starting: java version 18.0.1 by Oracle Corporation; OS Windows 10 arch amd64 version 10.0
+[23Feb2023 23:00:08.422] [main/INFO] [mixin/]: SpongePowered MIXIN Subsystem Version=0.8.5 Source=union:/C:/Users/Miguel/.gradle/caches/modules-2/files-2.1/org.spongepowered/mixin/0.8.5/9d1c0c3a304ae6697ecd477218fa61b850bf57fc/mixin-0.8.5.jar%23120!/ Service=ModLauncher Env=SERVER
+[23Feb2023 23:00:08.704] [main/WARN] [net.minecraftforge.fml.loading.moddiscovery.ModFileParser/LOADING]: Mod file C:\Users\Miguel\.gradle\caches\modules-2\files-2.1\net.minecraftforge\javafmllanguage\1.19.2-43.2.4\9dd0e01623ca7febbc6623ea50a59e6b717bd24f\javafmllanguage-1.19.2-43.2.4.jar is missing mods.toml file
+[23Feb2023 23:00:08.711] [main/WARN] [net.minecraftforge.fml.loading.moddiscovery.ModFileParser/LOADING]: Mod file C:\Users\Miguel\.gradle\caches\modules-2\files-2.1\net.minecraftforge\lowcodelanguage\1.19.2-43.2.4\4e3df9fe9d70bcfec5888a8ff7b466e4ee6323eb\lowcodelanguage-1.19.2-43.2.4.jar is missing mods.toml file
+[23Feb2023 23:00:08.718] [main/WARN] [net.minecraftforge.fml.loading.moddiscovery.ModFileParser/LOADING]: Mod file C:\Users\Miguel\.gradle\caches\modules-2\files-2.1\net.minecraftforge\mclanguage\1.19.2-43.2.4\a0f408813b15d383560426c4ff2c62bfc03f8603\mclanguage-1.19.2-43.2.4.jar is missing mods.toml file
+[23Feb2023 23:00:08.725] [main/WARN] [net.minecraftforge.fml.loading.moddiscovery.ModFileParser/LOADING]: Mod file C:\Users\Miguel\.gradle\caches\modules-2\files-2.1\net.minecraftforge\fmlcore\1.19.2-43.2.4\b6fd545a4056a0381ded20b5aeb221d81cc96361\fmlcore-1.19.2-43.2.4.jar is missing mods.toml file
+[23Feb2023 23:00:08.841] [main/INFO] [net.minecraftforge.fml.loading.moddiscovery.JarInJarDependencyLocator/]: No dependencies to load found. Skipping!
+[23Feb2023 23:00:09.757] [main/INFO] [cpw.mods.modlauncher.LaunchServiceHandler/MODLAUNCHER]: Launching target 'forgeserveruserdev' with arguments [--gameDir, .]
+[23Feb2023 23:00:12.163] [main/INFO] [net.minecraft.util.datafix.DataFixers/]: Building unoptimized datafixer
+[23Feb2023 23:00:13.075] [modloading-worker-0/INFO] [net.minecraftforge.common.ForgeMod/FORGEMOD]: Forge mod loading, version 43.2.4, for MC 1.19.2 with MCP 20220805.130853
+[23Feb2023 23:00:13.077] [modloading-worker-0/INFO] [net.minecraftforge.common.MinecraftForge/FORGE]: MinecraftForge v43.2.4 Initialized
+[23Feb2023 23:00:13.731] [Forge Version Check/INFO] [net.minecraftforge.fml.VersionChecker/]: [forge] Starting version check at https://files.minecraftforge.net/net/minecraftforge/forge/promotions_slim.json
+[23Feb2023 23:00:14.310] [main/INFO] [com.mojang.authlib.yggdrasil.YggdrasilAuthenticationService/]: Environment: authHost='https://authserver.mojang.com', accountsHost='https://api.mojang.com', sessionHost='https://sessionserver.mojang.com', servicesHost='https://api.minecraftservices.com', name='PROD'
+[23Feb2023 23:00:14.338] [Forge Version Check/INFO] [net.minecraftforge.fml.VersionChecker/]: [forge] Found status: AHEAD Current: 43.2.4 Target: null
+[23Feb2023 23:00:14.369] [main/WARN] [net.minecraftforge.common.ForgeHooks/WP]: The following mods have version differences that were not resolved:
+forge (version 44.1.5 -> 43.2.4)
+Things may not work well.
+[23Feb2023 23:00:14.423] [main/ERROR] [net.minecraftforge.registries.GameData/REGISTRIES]: Unidentified mapping from registry minecraft:block
+	minecraft:acacia_hanging_sign: 921
+	minecraft:acacia_wall_hanging_sign: 931
+	minecraft:bamboo_block: 907
+	minecraft:bamboo_button: 947
+	minecraft:bamboo_door: 962
+	minecraft:bamboo_fence: 960
+	minecraft:bamboo_fence_gate: 958
+	minecraft:bamboo_hanging_sign: 927
+	minecraft:bamboo_mosaic: 902
+	minecraft:bamboo_mosaic_slab: 955
+	minecraft:bamboo_mosaic_stairs: 952
+	minecraft:bamboo_planks: 901
+	minecraft:bamboo_pressure_plate: 939
+	minecraft:bamboo_sign: 915
+	minecraft:bamboo_slab: 954
+	minecraft:bamboo_stairs: 951
+	minecraft:bamboo_trapdoor: 941
+	minecraft:bamboo_wall_hanging_sign: 937
+	minecraft:bamboo_wall_sign: 917
+	minecraft:birch_hanging_sign: 920
+	minecraft:birch_wall_hanging_sign: 930
+	minecraft:chiseled_bookshelf: 913
+	minecraft:crimson_hanging_sign: 924
+	minecraft:crimson_wall_hanging_sign: 935
+	minecraft:dark_oak_hanging_sign: 923
+	minecraft:dark_oak_wall_hanging_sign: 933
+	minecraft:jungle_hanging_sign: 922
+	minecraft:jungle_wall_hanging_sign: 932
+	minecraft:mangrove_hanging_sign: 926
+	minecraft:mangrove_wall_hanging_sign: 934
+	minecraft:oak_hanging_sign: 918
+	minecraft:oak_wall_hanging_sign: 928
+	minecraft:piglin_head: 948
+	minecraft:piglin_wall_head: 949
+	minecraft:spruce_hanging_sign: 919
+	minecraft:spruce_wall_hanging_sign: 929
+	minecraft:stripped_bamboo_block: 909
+	minecraft:warped_hanging_sign: 925
+	minecraft:warped_wall_hanging_sign: 936
+
+[23Feb2023 23:00:14.425] [main/ERROR] [net.minecraftforge.registries.GameData/REGISTRIES]: Unidentified mapping from registry minecraft:entity_type
+	minecraft:camel: 115
+
+[23Feb2023 23:00:14.426] [main/ERROR] [net.minecraftforge.registries.GameData/REGISTRIES]: Unidentified mapping from registry minecraft:item
+	minecraft:acacia_hanging_sign: 1166
+	minecraft:bamboo_block: 1115
+	minecraft:bamboo_button: 1141
+	minecraft:bamboo_chest_raft: 1159
+	minecraft:bamboo_door: 1145
+	minecraft:bamboo_fence: 1127
+	minecraft:bamboo_fence_gate: 1149
+	minecraft:bamboo_hanging_sign: 1169
+	minecraft:bamboo_mosaic: 1110
+	minecraft:bamboo_mosaic_slab: 1123
+	minecraft:bamboo_mosaic_stairs: 1138
+	minecraft:bamboo_planks: 1109
+	minecraft:bamboo_pressure_plate: 1143
+	minecraft:bamboo_raft: 1158
+	minecraft:bamboo_sign: 1161
+	minecraft:bamboo_slab: 1122
+	minecraft:bamboo_stairs: 1137
+	minecraft:bamboo_trapdoor: 1147
+	minecraft:birch_hanging_sign: 1164
+	minecraft:camel_spawn_egg: 1175
+	minecraft:chiseled_bookshelf: 1125
+	minecraft:crimson_hanging_sign: 1170
+	minecraft:dark_oak_hanging_sign: 1167
+	minecraft:ender_dragon_spawn_egg: 1176
+	minecraft:iron_golem_spawn_egg: 1178
+	minecraft:jungle_hanging_sign: 1165
+	minecraft:mangrove_hanging_sign: 1168
+	minecraft:oak_hanging_sign: 1162
+	minecraft:piglin_head: 1183
+	minecraft:snow_golem_spawn_egg: 1179
+	minecraft:spruce_hanging_sign: 1163
+	minecraft:stripped_bamboo_block: 1118
+	minecraft:warped_hanging_sign: 1171
+	minecraft:wither_spawn_egg: 1182
+
+[23Feb2023 23:00:14.426] [main/ERROR] [net.minecraftforge.registries.GameData/REGISTRIES]: Unidentified mapping from registry minecraft:memory_module_type
+	minecraft:gaze_cooldown_ticks: 70
+
+[23Feb2023 23:00:14.428] [main/ERROR] [net.minecraftforge.registries.GameData/REGISTRIES]: Unidentified mapping from registry minecraft:sound_event
+	minecraft:block.bamboo_wood.break: 1210
+	minecraft:block.bamboo_wood.fall: 1211
+	minecraft:block.bamboo_wood.hit: 1212
+	minecraft:block.bamboo_wood.place: 1213
+	minecraft:block.bamboo_wood.step: 1214
+	minecraft:block.bamboo_wood_button.click_off: 1219
+	minecraft:block.bamboo_wood_button.click_on: 1220
+	minecraft:block.bamboo_wood_door.close: 1215
+	minecraft:block.bamboo_wood_door.open: 1216
+	minecraft:block.bamboo_wood_fence_gate.close: 1223
+	minecraft:block.bamboo_wood_fence_gate.open: 1224
+	minecraft:block.bamboo_wood_hanging_sign.break: 1280
+	minecraft:block.bamboo_wood_hanging_sign.fall: 1281
+	minecraft:block.bamboo_wood_hanging_sign.hit: 1282
+	minecraft:block.bamboo_wood_hanging_sign.place: 1283
+	minecraft:block.bamboo_wood_hanging_sign.step: 1279
+	minecraft:block.bamboo_wood_pressure_plate.click_off: 1221
+	minecraft:block.bamboo_wood_pressure_plate.click_on: 1222
+	minecraft:block.bamboo_wood_trapdoor.close: 1217
+	minecraft:block.bamboo_wood_trapdoor.open: 1218
+	minecraft:block.chiseled_bookshelf.break: 1238
+	minecraft:block.chiseled_bookshelf.fall: 1239
+	minecraft:block.chiseled_bookshelf.hit: 1240
+	minecraft:block.chiseled_bookshelf.insert: 1241
+	minecraft:block.chiseled_bookshelf.insert.enchanted: 1242
+	minecraft:block.chiseled_bookshelf.pickup: 1244
+	minecraft:block.chiseled_bookshelf.pickup.enchanted: 1245
+	minecraft:block.chiseled_bookshelf.place: 1246
+	minecraft:block.chiseled_bookshelf.step: 1243
+	minecraft:block.hanging_sign.break: 1270
+	minecraft:block.hanging_sign.fall: 1271
+	minecraft:block.hanging_sign.hit: 1272
+	minecraft:block.hanging_sign.place: 1273
+	minecraft:block.hanging_sign.step: 1269
+	minecraft:block.nether_wood.break: 1317
+	minecraft:block.nether_wood.fall: 1318
+	minecraft:block.nether_wood.hit: 1319
+	minecraft:block.nether_wood.place: 1320
+	minecraft:block.nether_wood.step: 1321
+	minecraft:block.nether_wood_button.click_off: 1326
+	minecraft:block.nether_wood_button.click_on: 1327
+	minecraft:block.nether_wood_door.close: 1322
+	minecraft:block.nether_wood_door.open: 1323
+	minecraft:block.nether_wood_fence_gate.close: 1330
+	minecraft:block.nether_wood_fence_gate.open: 1331
+	minecraft:block.nether_wood_hanging_sign.break: 1275
+	minecraft:block.nether_wood_hanging_sign.fall: 1276
+	minecraft:block.nether_wood_hanging_sign.hit: 1277
+	minecraft:block.nether_wood_hanging_sign.place: 1278
+	minecraft:block.nether_wood_hanging_sign.step: 1274
+	minecraft:block.nether_wood_pressure_plate.click_off: 1328
+	minecraft:block.nether_wood_pressure_plate.click_on: 1329
+	minecraft:block.nether_wood_trapdoor.close: 1324
+	minecraft:block.nether_wood_trapdoor.open: 1325
+	minecraft:block.note_block.imitate.creeper: 1339
+	minecraft:block.note_block.imitate.ender_dragon: 1340
+	minecraft:block.note_block.imitate.piglin: 1342
+	minecraft:block.note_block.imitate.skeleton: 1338
+	minecraft:block.note_block.imitate.wither_skeleton: 1341
+	minecraft:block.note_block.imitate.zombie: 1337
+	minecraft:entity.camel.ambient: 1227
+	minecraft:entity.camel.dash: 1228
+	minecraft:entity.camel.dash_ready: 1229
+	minecraft:entity.camel.death: 1230
+	minecraft:entity.camel.eat: 1231
+	minecraft:entity.camel.hurt: 1232
+	minecraft:entity.camel.saddle: 1233
+	minecraft:entity.camel.sit: 1234
+	minecraft:entity.camel.stand: 1235
+	minecraft:entity.camel.step: 1236
+	minecraft:entity.camel.step_sand: 1237
+
+[23Feb2023 23:00:14.433] [main/WARN] [net.minecraftforge.registries.GameData/REGISTRIES]: Forge Mod Loader detected missing registry entries.
+
+There are 146 missing entries in this save.
+If you continue the missing entries will get removed.
+A world backup will be automatically created in your saves directory.
+
+
+[23Feb2023 23:00:14.433] [main/WARN] [net.minecraftforge.registries.GameData/REGISTRIES]: Missing minecraft:sound_event:
+    minecraft:block.bamboo_wood.break
+    minecraft:block.bamboo_wood.fall
+    minecraft:block.bamboo_wood.hit
+    minecraft:block.bamboo_wood.place
+    minecraft:block.bamboo_wood.step
+    minecraft:block.bamboo_wood_button.click_off
+    minecraft:block.bamboo_wood_button.click_on
+    minecraft:block.bamboo_wood_door.close
+    minecraft:block.bamboo_wood_door.open
+    minecraft:block.bamboo_wood_fence_gate.close
+    minecraft:block.bamboo_wood_fence_gate.open
+    minecraft:block.bamboo_wood_hanging_sign.break
+    minecraft:block.bamboo_wood_hanging_sign.fall
+    minecraft:block.bamboo_wood_hanging_sign.hit
+    minecraft:block.bamboo_wood_hanging_sign.place
+    minecraft:block.bamboo_wood_hanging_sign.step
+    minecraft:block.bamboo_wood_pressure_plate.click_off
+    minecraft:block.bamboo_wood_pressure_plate.click_on
+    minecraft:block.bamboo_wood_trapdoor.close
+    minecraft:block.bamboo_wood_trapdoor.open
+    minecraft:block.chiseled_bookshelf.break
+    minecraft:block.chiseled_bookshelf.fall
+    minecraft:block.chiseled_bookshelf.hit
+    minecraft:block.chiseled_bookshelf.insert
+    minecraft:block.chiseled_bookshelf.insert.enchanted
+    minecraft:block.chiseled_bookshelf.pickup
+    minecraft:block.chiseled_bookshelf.pickup.enchanted
+    minecraft:block.chiseled_bookshelf.place
+    minecraft:block.chiseled_bookshelf.step
+    minecraft:block.hanging_sign.break
+    minecraft:block.hanging_sign.fall
+    minecraft:block.hanging_sign.hit
+    minecraft:block.hanging_sign.place
+    minecraft:block.hanging_sign.step
+    minecraft:block.nether_wood.break
+    minecraft:block.nether_wood.fall
+    minecraft:block.nether_wood.hit
+    minecraft:block.nether_wood.place
+    minecraft:block.nether_wood.step
+    minecraft:block.nether_wood_button.click_off
+    minecraft:block.nether_wood_button.click_on
+    minecraft:block.nether_wood_door.close
+    minecraft:block.nether_wood_door.open
+    minecraft:block.nether_wood_fence_gate.close
+    minecraft:block.nether_wood_fence_gate.open
+    minecraft:block.nether_wood_hanging_sign.break
+    minecraft:block.nether_wood_hanging_sign.fall
+    minecraft:block.nether_wood_hanging_sign.hit
+    minecraft:block.nether_wood_hanging_sign.place
+    minecraft:block.nether_wood_hanging_sign.step
+    minecraft:block.nether_wood_pressure_plate.click_off
+    minecraft:block.nether_wood_pressure_plate.click_on
+    minecraft:block.nether_wood_trapdoor.close
+    minecraft:block.nether_wood_trapdoor.open
+    minecraft:block.note_block.imitate.creeper
+    minecraft:block.note_block.imitate.ender_dragon
+    minecraft:block.note_block.imitate.piglin
+    minecraft:block.note_block.imitate.skeleton
+    minecraft:block.note_block.imitate.wither_skeleton
+    minecraft:block.note_block.imitate.zombie
+    minecraft:entity.camel.ambient
+    minecraft:entity.camel.dash
+    minecraft:entity.camel.dash_ready
+    minecraft:entity.camel.death
+    minecraft:entity.camel.eat
+    minecraft:entity.camel.hurt
+    minecraft:entity.camel.saddle
+    minecraft:entity.camel.sit
+    minecraft:entity.camel.stand
+    minecraft:entity.camel.step
+    minecraft:entity.camel.step_sand
+
+Missing minecraft:item:
+    minecraft:acacia_hanging_sign
+    minecraft:bamboo_block
+    minecraft:bamboo_button
+    minecraft:bamboo_chest_raft
+    minecraft:bamboo_door
+    minecraft:bamboo_fence
+    minecraft:bamboo_fence_gate
+    minecraft:bamboo_hanging_sign
+    minecraft:bamboo_mosaic
+    minecraft:bamboo_mosaic_slab
+    minecraft:bamboo_mosaic_stairs
+    minecraft:bamboo_planks
+    minecraft:bamboo_pressure_plate
+    minecraft:bamboo_raft
+    minecraft:bamboo_sign
+    minecraft:bamboo_slab
+    minecraft:bamboo_stairs
+    minecraft:bamboo_trapdoor
+    minecraft:birch_hanging_sign
+    minecraft:camel_spawn_egg
+    minecraft:chiseled_bookshelf
+    minecraft:crimson_hanging_sign
+    minecraft:dark_oak_hanging_sign
+    minecraft:ender_dragon_spawn_egg
+    minecraft:iron_golem_spawn_egg
+    minecraft:jungle_hanging_sign
+    minecraft:mangrove_hanging_sign
+    minecraft:oak_hanging_sign
+    minecraft:piglin_head
+    minecraft:snow_golem_spawn_egg
+    minecraft:spruce_hanging_sign
+    minecraft:stripped_bamboo_block
+    minecraft:warped_hanging_sign
+    minecraft:wither_spawn_egg
+
+Missing minecraft:block:
+    minecraft:acacia_hanging_sign
+    minecraft:acacia_wall_hanging_sign
+    minecraft:bamboo_block
+    minecraft:bamboo_button
+    minecraft:bamboo_door
+    minecraft:bamboo_fence
+    minecraft:bamboo_fence_gate
+    minecraft:bamboo_hanging_sign
+    minecraft:bamboo_mosaic
+    minecraft:bamboo_mosaic_slab
+    minecraft:bamboo_mosaic_stairs
+    minecraft:bamboo_planks
+    minecraft:bamboo_pressure_plate
+    minecraft:bamboo_sign
+    minecraft:bamboo_slab
+    minecraft:bamboo_stairs
+    minecraft:bamboo_trapdoor
+    minecraft:bamboo_wall_hanging_sign
+    minecraft:bamboo_wall_sign
+    minecraft:birch_hanging_sign
+    minecraft:birch_wall_hanging_sign
+    minecraft:chiseled_bookshelf
+    minecraft:crimson_hanging_sign
+    minecraft:crimson_wall_hanging_sign
+    minecraft:dark_oak_hanging_sign
+    minecraft:dark_oak_wall_hanging_sign
+    minecraft:jungle_hanging_sign
+    minecraft:jungle_wall_hanging_sign
+    minecraft:mangrove_hanging_sign
+    minecraft:mangrove_wall_hanging_sign
+    minecraft:oak_hanging_sign
+    minecraft:oak_wall_hanging_sign
+    minecraft:piglin_head
+    minecraft:piglin_wall_head
+    minecraft:spruce_hanging_sign
+    minecraft:spruce_wall_hanging_sign
+    minecraft:stripped_bamboo_block
+    minecraft:warped_hanging_sign
+    minecraft:warped_wall_hanging_sign
+
+Missing minecraft:memory_module_type:
+    minecraft:gaze_cooldown_ticks
+
+Missing minecraft:entity_type:
+    minecraft:camel
+
+
+[23Feb2023 23:00:14.434] [main/ERROR] [net.minecraftforge.registries.GameData/REGISTRIES]: There are unidentified mappings in this world - we are going to attempt to process anyway
+[23Feb2023 23:00:14.773] [main/WARN] [net.minecraft.server.packs.VanillaPackResources/]: Assets URL 'union:/C:/Users/Miguel/.gradle/caches/forge_gradle/minecraft_user_repo/net/minecraftforge/forge/1.19.2-43.2.4_mapped_official_1.19.2/forge-1.19.2-43.2.4_mapped_official_1.19.2-recomp.jar%23183!/assets/.mcassetsroot' uses unexpected schema
+[23Feb2023 23:00:14.773] [main/WARN] [net.minecraft.server.packs.VanillaPackResources/]: Assets URL 'union:/C:/Users/Miguel/.gradle/caches/forge_gradle/minecraft_user_repo/net/minecraftforge/forge/1.19.2-43.2.4_mapped_official_1.19.2/forge-1.19.2-43.2.4_mapped_official_1.19.2-recomp.jar%23183!/data/.mcassetsroot' uses unexpected schema
+[23Feb2023 23:00:17.338] [main/INFO] [net.minecraft.world.item.crafting.RecipeManager/]: Loaded 7 recipes
+[23Feb2023 23:00:17.972] [main/INFO] [net.minecraft.advancements.AdvancementList/]: Loaded 1179 advancements
+[23Feb2023 23:00:18.152] [main/WARN] [net.minecraft.server.dedicated.DedicatedServerProperties/]: Failed to parse level-type default, defaulting to minecraft:normal
+[23Feb2023 23:00:18.589] [Server thread/INFO] [net.minecraft.server.dedicated.DedicatedServer/]: Starting minecraft server version 1.19.2
+[23Feb2023 23:00:18.589] [Server thread/INFO] [net.minecraft.server.dedicated.DedicatedServer/]: Loading properties
+[23Feb2023 23:00:18.590] [Server thread/INFO] [net.minecraft.server.dedicated.DedicatedServer/]: Default game type: SURVIVAL
+[23Feb2023 23:00:18.590] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Generating keypair
+[23Feb2023 23:00:18.631] [Server thread/INFO] [net.minecraft.server.dedicated.DedicatedServer/]: Starting Minecraft server on *:25565
+[23Feb2023 23:00:18.641] [Server thread/INFO] [net.minecraft.server.network.ServerConnectionListener/]: Using default channel type
+[23Feb2023 23:00:18.746] [Server thread/WARN] [net.minecraft.server.dedicated.DedicatedServer/]: **** SERVER IS RUNNING IN OFFLINE/INSECURE MODE!
+[23Feb2023 23:00:18.746] [Server thread/WARN] [net.minecraft.server.dedicated.DedicatedServer/]: The server will make no attempt to authenticate usernames. Beware.
+[23Feb2023 23:00:18.747] [Server thread/WARN] [net.minecraft.server.dedicated.DedicatedServer/]: While this makes the game possible to play without internet access, it also opens up the ability for hackers to connect with any username they choose.
+[23Feb2023 23:00:18.747] [Server thread/WARN] [net.minecraft.server.dedicated.DedicatedServer/]: To change this, set "online-mode" to "true" in the server.properties file.
+[23Feb2023 23:00:18.793] [Server thread/INFO] [net.minecraft.server.dedicated.DedicatedServer/]: Preparing level "world"
+[23Feb2023 23:00:18.983] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Preparing start region for dimension minecraft:overworld
+[23Feb2023 23:00:21.132] [Worker-Main-5/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 0%
+[23Feb2023 23:00:21.132] [Worker-Main-5/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 0%
+[23Feb2023 23:00:21.133] [Worker-Main-17/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 0%
+[23Feb2023 23:00:21.136] [Worker-Main-5/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 0%
+[23Feb2023 23:00:21.142] [Worker-Main-12/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 0%
+[23Feb2023 23:00:21.484] [Worker-Main-9/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 3%
+[23Feb2023 23:00:21.934] [Server thread/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Time elapsed: 2951 ms
+[23Feb2023 23:00:21.934] [Server thread/INFO] [net.minecraft.server.dedicated.DedicatedServer/]: Done (3.167s)! For help, type "help"
+[23Feb2023 23:00:21.939] [Server thread/INFO] [net.minecraftforge.gametest.ForgeGameTestHooks/]: Enabled Gametest Namespaces: [simpleshops]
+[23Feb2023 23:00:21.943] [Server thread/INFO] [net.minecraftforge.server.permission.PermissionAPI/]: Successfully initialized permission handler forge:default_handler
+[23Feb2023 23:00:51.801] [Server thread/INFO] [net.minecraftforge.common.AdvancementLoadFix/]: Using new advancement loading for net.minecraft.server.PlayerAdvancements@3c751b62
+[23Feb2023 23:00:51.815] [Server thread/INFO] [net.minecraft.server.players.PlayerList/]: Wolforce[/[0:0:0:0:0:0:0:1]:60461] logged in with entity id 116 at (39.990012848522646, 89.0, -52.19541138935929)
+[23Feb2023 23:00:51.903] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Wolforce joined the game
+[23Feb2023 23:01:13.859] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: [Wolforce: Gamerule doDaylightCycle is now set to: true]
+[23Feb2023 23:01:30.541] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: [Wolforce: Gave 1 [Green Stock Viewer] to Wolforce]
+[23Feb2023 23:01:44.787] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: [Wolforce: Gave 1 [Simple Shop] to Wolforce]
+[23Feb2023 23:03:58.726] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: [Not Secure] <Wolforce> aseas\
+[23Feb2023 23:06:11.373] [Server thread/INFO] [net.minecraftforge.common.AdvancementLoadFix/]: Using new advancement loading for net.minecraft.server.PlayerAdvancements@4885ce98
+[23Feb2023 23:06:11.384] [Server thread/INFO] [net.minecraft.server.players.PlayerList/]: WolforcePT[/[0:0:0:0:0:0:0:1]:51576] logged in with entity id 652 at (37.392119762543096, 89.6875, -50.88468221865035)
+[23Feb2023 23:06:11.408] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: WolforcePT joined the game
+[23Feb2023 23:07:25.636] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: [Wolforce: The difficulty has been set to Peaceful]
+[23Feb2023 23:17:44.347] [Server thread/INFO] [net.minecraft.server.network.ServerGamePacketListenerImpl/]: Wolforce lost connection: Disconnected
+[23Feb2023 23:17:44.348] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Wolforce left the game
+[23Feb2023 23:17:46.997] [Server thread/INFO] [net.minecraft.server.network.ServerGamePacketListenerImpl/]: WolforcePT lost connection: Disconnected
+[23Feb2023 23:17:46.998] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: WolforcePT left the game
+[23Feb2023 23:38:52.944] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Stopping server
+[23Feb2023 23:38:52.944] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving players
+[23Feb2023 23:38:52.944] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving worlds
+[23Feb2023 23:38:53.420] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[world]'/minecraft:overworld
+[23Feb2023 23:38:53.782] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[world]'/minecraft:the_nether
+[23Feb2023 23:38:53.783] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[world]'/minecraft:the_end
+[23Feb2023 23:38:53.793] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: ThreadedAnvilChunkStorage (world): All chunks are saved
+[23Feb2023 23:38:53.793] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: ThreadedAnvilChunkStorage (DIM-1): All chunks are saved
+[23Feb2023 23:38:53.793] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: ThreadedAnvilChunkStorage (DIM1): All chunks are saved
+[23Feb2023 23:38:53.793] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: ThreadedAnvilChunkStorage: All dimensions are saved

@@ -1,12 +1,11 @@
 package wolforce.simpleshops.utils;
 
-import org.joml.Quaternionf;
-
 import com.mojang.blaze3d.platform.Lighting;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.mojang.math.MatrixUtil;
+import com.mojang.math.Quaternion;
+import com.mojang.math.Vector3f;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Screen;
@@ -144,8 +143,7 @@ public class UtilRenderItem {
 			poseStack.translate(position.x, position.y, position.z);
 		if (rotate) {
 			long time = System.currentTimeMillis() / 40 % 360;
-			poseStack.mulPose(new Quaternionf().rotateLocalY((float) (time / 100.0 * Math.PI * 2)));
-//			poseStack.mulPose(new Quaternionf(new AxisAngle4f(time, 0, 0, 0))); // TODO YP
+			poseStack.mulPose(new Quaternion(Vector3f.YP, time, true));
 		}
 		
 		poseStack.translate(8.0D, 8.0D, 0.0D);
@@ -202,8 +200,10 @@ public class UtilRenderItem {
 		if (position != null)
 			poseStack.translate(position.x, position.y, position.z);
 		if (rotate) {
-			float time = System.currentTimeMillis() / 40 % 360 / 360f;
-			poseStack.mulPose(new Quaternionf().rotateLocalY(time * (float) Math.PI * 2));
+			long time = System.currentTimeMillis() / 40 % 360;
+			poseStack.mulPose(new Quaternion(Vector3f.YP, time, true));
+			// poseStack.mulPose(new Quaternionf().rotateLocalY(time * (float) Math.PI *
+			// 2));
 		}
 		
 		if (!render3D) {
@@ -260,9 +260,9 @@ public class UtilRenderItem {
 							poseStack.pushPose();
 							PoseStack.Pose posestack$pose = poseStack.last();
 							if (transformType == ItemTransforms.TransformType.GUI) {
-								MatrixUtil.mulComponentWise(posestack$pose.pose(), 0.5F);
+								posestack$pose.pose().multiply(0.5F);
 							} else if (transformType.firstPerson()) {
-								MatrixUtil.mulComponentWise(posestack$pose.pose(), 0.75F);
+								posestack$pose.pose().multiply(0.75F);
 							}
 							
 							if (flag1) {

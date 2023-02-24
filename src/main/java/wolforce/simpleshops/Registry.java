@@ -3,6 +3,7 @@ package wolforce.simpleshops;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -30,7 +31,12 @@ public class Registry {
 		TILES.register(bus);
 	}
 	
-	public static CreativeModeTab TAB = null;
+	public static final CreativeModeTab TAB = new CreativeModeTab(SimpleShops.MODID) {
+		@Override
+		public ItemStack makeIcon() {
+			return new ItemStack(Registry.SIMPLE_SHOP.get());
+		}
+	};
 	
 	// block materials
 	public static Block.Properties wood = Block.Properties.of(Material.WOOD, MaterialColor.WOOD).sound(SoundType.WOOD)//
@@ -41,24 +47,24 @@ public class Registry {
 	public static final RegistryObject<Block> SIMPLE_SHOP = //
 			BLOCKS.register(SIMPLE_SHOP_REGNAME, () -> new SimpleShopBlock(wood, false));
 	public static final RegistryObject<Item> SIMPLE_SHOP_ITEM = ITEMS.register(SIMPLE_SHOP_REGNAME,
-			() -> new BlockItem(SIMPLE_SHOP.get(), new Item.Properties()));
+			() -> new BlockItem(SIMPLE_SHOP.get(), new Item.Properties().tab(TAB)));
 	
 	// Creative Simple Shop
 	public static final String SIMPLE_SHOP_CREATIVE_REGNAME = "creative_simple_shop";
 	public static final RegistryObject<Block> SIMPLE_SHOP_CREATIVE = //
 			BLOCKS.register(SIMPLE_SHOP_CREATIVE_REGNAME, () -> new SimpleShopBlock(wood, true));
 	public static final RegistryObject<Item> SIMPLE_SHOP_CREATIVE_ITEM = ITEMS.register(SIMPLE_SHOP_CREATIVE_REGNAME,
-			() -> new BlockItem(SIMPLE_SHOP_CREATIVE.get(), new Item.Properties()));
+			() -> new BlockItem(SIMPLE_SHOP_CREATIVE.get(), new Item.Properties().tab(TAB)));
 	
 	// Stockbars
 	public static final RegistryObject<Item> WOODEN_STOCKBAR = ITEMS.register("wooden_stockbar",
-			() -> new StockBarItem(new Item.Properties(), 16, 11));
+			() -> new StockBarItem(new Item.Properties().tab(TAB), 16, 11));
 	public static final RegistryObject<Item> QUARTZ_STOCKBAR = ITEMS.register("quartz_stockbar",
-			() -> new StockBarItem(new Item.Properties(), 16, 13));
+			() -> new StockBarItem(new Item.Properties().tab(TAB), 16, 13));
 	public static final RegistryObject<Item> GREEN_STOCKBAR = ITEMS.register("green_stockbar",
-			() -> new StockBarItem(new Item.Properties(), 0, 11));
+			() -> new StockBarItem(new Item.Properties().tab(TAB), 0, 11));
 	public static final RegistryObject<Item> RED_STOCKBAR = ITEMS.register("red_stockbar",
-			() -> new StockBarItem(new Item.Properties(), 0, 13));
+			() -> new StockBarItem(new Item.Properties().tab(TAB), 0, 13));
 	
 	// Tile
 	public static final RegistryObject<BlockEntityType<SimpleShopTileEntity>> SIMPLE_SHOP_TILE = TILES

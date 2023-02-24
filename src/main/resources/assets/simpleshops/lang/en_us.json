@@ -1,5 +1,5 @@
 {
-	"itemGroup.Simple Shops": "Simple Shops",
+	"itemGroup.simpleshops": "Simple Shops",
 	
     "item.simpleshops.green_stockbar" : "Green Stock Viewer",
     "item.simpleshops.red_stockbar" : "Red Stock Viewer",
