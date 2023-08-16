@@ -27,7 +27,7 @@ minecraft {
     runs {
         client {
             args '--username', 'Wolforce'
-            taskName "$mod_id $minecraft_version client"
+            taskName mod_id + "_" + minecraft_version + "_client"
             workingDirectory project.file('run')
             property 'forge.logging.markers', ''
             property 'forge.logging.console.level', 'info'
@@ -42,7 +42,7 @@ minecraft {
 
         client2 {
             args '--username', 'WolforcePT'
-            taskName "$mod_id $minecraft_version client2"
+            taskName mod_id + "_" + minecraft_version + "_client2"
             workingDirectory project.file('run')
             property 'forge.logging.markers', ''
             property 'forge.logging.console.level', 'info'
@@ -56,7 +56,7 @@ minecraft {
         }
 
         server {
-            taskName "$mod_id 18 server"
+            taskName mod_id + "_" + minecraft_version + "_server"
             workingDirectory project.file('run_server')
             property 'forge.logging.markers', ''
             property 'forge.logging.console.level', 'info'
@@ -96,10 +96,10 @@ repositories {
         url "https://maven.tehnut.info"
     }
     maven {
-		url 'https://maven.blamejared.com' 
-	}
+        url 'https://maven.blamejared.com'
+    }
     maven {
-        url "https://cubicinterpolation.net/maven/" 
+        url "https://cubicinterpolation.net/maven/"
     }
 }
 
@@ -112,13 +112,13 @@ dependencies {
 jar {
     manifest {
         attributes([
-            "Specification-Title"     : "$mod_id",
-            "Specification-Vendor"    : "$mod_id",
-            "Specification-Version"   : "1",
-            "Implementation-Title"    : project.name,
-            "Implementation-Version"  : project.jar.archiveVersion,
-            "Implementation-Vendor"   : "$mod_id",
-            "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
+                "Specification-Title"     : "$mod_id",
+                "Specification-Vendor"    : "$mod_id",
+                "Specification-Version"   : "1",
+                "Implementation-Title"    : project.name,
+                "Implementation-Version"  : project.jar.archiveVersion,
+                "Implementation-Vendor"   : "$mod_id",
+                "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
         ])
     }
 }
