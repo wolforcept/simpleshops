@@ -1,7 +1,7 @@
 {
 	"parent": "item/generated",
 	"textures": {
-		"layer0": "simpleshops:items/wooden_stockbar"
+		"layer0": "simpleshops:item/wooden_stockbar"
 	},
 	"display": {
 		"thirdperson": {

@@ -1,9 +1,10 @@
 {
 	"credit": "Made with Blockbench",
+	"parent": "block/cube_all",
 	"texture_size": [32, 32],
 	"textures": {
-		"0": "simpleshops:blocks/creative_simple_shop",
-		"particle": "simpleshops:blocks/creative_simple_shop"
+		"0": "simpleshops:block/creative_simple_shop",
+		"particle": "simpleshops:block/creative_simple_shop"
 	},
 	"elements": [
 		{

@@ -19,7 +19,6 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.StateDefinition.Builder;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
@@ -27,7 +26,7 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import wolforce.utils.stacks.UtilInventory;
+import wolforce.simpleshops.util.UtilInventory;
 
 public class SimpleShopBlock extends Block implements EntityBlock {
 
@@ -48,7 +47,7 @@ public class SimpleShopBlock extends Block implements EntityBlock {
 		builder.add(FACING);
 	}
 
-	protected void fillStateContainer(StateDefinition.Builder<Block, BlockState> builder) {
+	protected void fillStateContainer(Builder<Block, BlockState> builder) {
 		builder.add(FACING);
 	}
 
@@ -85,7 +84,7 @@ public class SimpleShopBlock extends Block implements EntityBlock {
 				if (!isCreative && handStack.getItem() instanceof StockBarItem) {
 					ItemStack prevBar = te.getBar();
 					if (prevBar != null && !prevBar.isEmpty()) {
-						te.spawn(player.level, player.position(), prevBar, 1);
+						te.spawn(player.level(), player.position(), prevBar, 1);
 					}
 					ItemStack newbar = handStack.copy();
 					newbar.setCount(1);
@@ -101,7 +100,7 @@ public class SimpleShopBlock extends Block implements EntityBlock {
 					ItemStack out = te.getOutputStack();
 					if (isCreative) {
 						te.setOutputStack(handStack);
-					} else if (out.isEmpty() || out.sameItem(handStack) && handStack.getCount() >= out.getCount()) {
+					} else if (out.isEmpty() || out.is(handStack.getItem()) && handStack.getCount() >= out.getCount()) {
 						player.setItemInHand(hand, te.insertInv(player, handStack));
 
 					}

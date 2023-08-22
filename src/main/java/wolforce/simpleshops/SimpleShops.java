@@ -13,6 +13,7 @@ public class SimpleShops {
 
 		IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
 		Registry.registerBus(bus);
+
 	}
 
 }
