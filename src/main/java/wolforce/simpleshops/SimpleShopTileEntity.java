@@ -186,7 +186,15 @@ public class SimpleShopTileEntity extends BlockEntityParent {
 	}
 	
 	public void spawn(Level world, Vec3 pos, ItemStack stack, int amount) {
-		spawn(world, pos, Util.setCount(stack, amount));
+		int maxStackSize = stack.getMaxStackSize();
+		int fullStacks = amount / maxStackSize;
+		for(int i = 0; i < fullStacks; i++){
+			spawn(world, pos, Util.setCount(stack, maxStackSize));
+		}
+		int remainder = amount % maxStackSize;
+		if(remainder > 0){
+			spawn(world, pos, Util.setCount(stack, remainder));
+		}
 	}
 	
 	public void spawn(Level world, Vec3 pos, ItemStack stack) {
